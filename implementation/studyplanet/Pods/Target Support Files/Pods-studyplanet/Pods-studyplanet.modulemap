@@ -1,0 +1,6 @@
+module Pods_studyplanet {
+  umbrella header "Pods-studyplanet-umbrella.h"
+
+  export *
+  module * { export * }
+}

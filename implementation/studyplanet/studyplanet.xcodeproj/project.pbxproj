@@ -1,0 +1,531 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1719F050259A91800067A49D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719F04F259A91800067A49D /* AppDelegate.swift */; };
+		1719F052259A91800067A49D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719F051259A91800067A49D /* SceneDelegate.swift */; };
+		1719F054259A91800067A49D /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719F053259A91800067A49D /* PlanViewController.swift */; };
+		1719F057259A91800067A49D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1719F055259A91800067A49D /* Main.storyboard */; };
+		1719F05A259A91800067A49D /* studyplanet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1719F058259A91800067A49D /* studyplanet.xcdatamodeld */; };
+		1719F05C259A91830067A49D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1719F05B259A91830067A49D /* Assets.xcassets */; };
+		1719F05F259A91830067A49D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1719F05D259A91830067A49D /* LaunchScreen.storyboard */; };
+		17205BFB259A987500C1B021 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205BFA259A987500C1B021 /* DateCell.swift */; };
+		17205BFF259A9D4700C1B021 /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205BFE259A9D4700C1B021 /* WelcomeController.swift */; };
+		17205C02259A9DB700C1B021 /* appbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 17205C01259A9DB600C1B021 /* appbackground.png */; };
+		17205C0D259A9E4A00C1B021 /* studyplanettext.png in Resources */ = {isa = PBXBuildFile; fileRef = 17205C0A259A9E4900C1B021 /* studyplanettext.png */; };
+		17205C0E259A9E4A00C1B021 /* shade.png in Resources */ = {isa = PBXBuildFile; fileRef = 17205C0B259A9E4A00C1B021 /* shade.png */; };
+		17205C13259A9E7F00C1B021 /* setupplanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 17205C11259A9E7E00C1B021 /* setupplanner.png */; };
+		17205C14259A9E7F00C1B021 /* Startup_Earth.png in Resources */ = {isa = PBXBuildFile; fileRef = 17205C12259A9E7F00C1B021 /* Startup_Earth.png */; };
+		17205C17259AA26400C1B021 /* containeroutline1.png in Resources */ = {isa = PBXBuildFile; fileRef = 17205C16259AA26400C1B021 /* containeroutline1.png */; };
+		17205C1A259AA28900C1B021 /* continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 17205C19259AA28900C1B021 /* continue.png */; };
+		17205C1E259AA32E00C1B021 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205C1C259AA32D00C1B021 /* ModuleViewController.swift */; };
+		17205C1F259AA32E00C1B021 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205C1D259AA32E00C1B021 /* StartupViewController.swift */; };
+		17205C23259AA49F00C1B021 /* ModuleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205C21259AA49F00C1B021 /* ModuleTableViewCell.swift */; };
+		17205C24259AA49F00C1B021 /* ModuleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17205C22259AA49F00C1B021 /* ModuleTableViewCell.xib */; };
+		177806EE259C017800B766F0 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177806EC259C017800B766F0 /* PlanTableViewCell.swift */; };
+		177806F4259CA63B00B766F0 /* PlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 177806F3259CA63B00B766F0 /* PlanTableViewCell.xib */; };
+		177806FB259CB33600B766F0 /* calenderbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 177806FA259CB33600B766F0 /* calenderbackground.png */; };
+		17780703259CB62D00B766F0 /* plannerprogress.png in Resources */ = {isa = PBXBuildFile; fileRef = 17780702259CB62D00B766F0 /* plannerprogress.png */; };
+		17780706259CBC5A00B766F0 /* plannerplus.png in Resources */ = {isa = PBXBuildFile; fileRef = 17780705259CBC5A00B766F0 /* plannerplus.png */; };
+		17EDF7AC259AADCC0002C1D4 /* world_with_shade.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */; };
+		79DB83D7DC48CCCE7C8746F9 /* libPods-studyplanet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 462E0F493B3FE78D744C8D4C /* libPods-studyplanet.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1719F04C259A91800067A49D /* studyplanet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studyplanet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1719F04F259A91800067A49D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1719F051259A91800067A49D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1719F053259A91800067A49D /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
+		1719F056259A91800067A49D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1719F059259A91800067A49D /* studyplanet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = studyplanet.xcdatamodel; sourceTree = "<group>"; };
+		1719F05B259A91830067A49D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1719F05E259A91830067A49D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1719F060259A91830067A49D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17205BFA259A987500C1B021 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		17205BFE259A9D4700C1B021 /* WelcomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeController.swift; path = studyplanet/WelcomeController.swift; sourceTree = SOURCE_ROOT; };
+		17205C01259A9DB600C1B021 /* appbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appbackground.png; sourceTree = "<group>"; };
+		17205C0A259A9E4900C1B021 /* studyplanettext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = studyplanettext.png; path = studyplanet/studyplanettext.png; sourceTree = SOURCE_ROOT; };
+		17205C0B259A9E4A00C1B021 /* shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shade.png; path = studyplanet/shade.png; sourceTree = SOURCE_ROOT; };
+		17205C11259A9E7E00C1B021 /* setupplanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setupplanner.png; sourceTree = "<group>"; };
+		17205C12259A9E7F00C1B021 /* Startup_Earth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Startup_Earth.png; sourceTree = "<group>"; };
+		17205C16259AA26400C1B021 /* containeroutline1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = containeroutline1.png; sourceTree = "<group>"; };
+		17205C19259AA28900C1B021 /* continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = continue.png; sourceTree = "<group>"; };
+		17205C1C259AA32D00C1B021 /* ModuleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
+		17205C1D259AA32E00C1B021 /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
+		17205C21259AA49F00C1B021 /* ModuleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleTableViewCell.swift; sourceTree = "<group>"; };
+		17205C22259AA49F00C1B021 /* ModuleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleTableViewCell.xib; sourceTree = "<group>"; };
+		177806EC259C017800B766F0 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableViewCell.swift; sourceTree = "<group>"; };
+		177806F3259CA63B00B766F0 /* PlanTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanTableViewCell.xib; sourceTree = "<group>"; };
+		177806FA259CB33600B766F0 /* calenderbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calenderbackground.png; sourceTree = "<group>"; };
+		17780702259CB62D00B766F0 /* plannerprogress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plannerprogress.png; sourceTree = "<group>"; };
+		17780705259CBC5A00B766F0 /* plannerplus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plannerplus.png; sourceTree = "<group>"; };
+		17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_with_shade.png; sourceTree = "<group>"; };
+		35878DA75B0013EA8ED9CFE1 /* Pods-studyplanet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studyplanet.debug.xcconfig"; path = "Target Support Files/Pods-studyplanet/Pods-studyplanet.debug.xcconfig"; sourceTree = "<group>"; };
+		462E0F493B3FE78D744C8D4C /* libPods-studyplanet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-studyplanet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A64BDDAD8FEE619C29810E3 /* Pods-studyplanet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studyplanet.release.xcconfig"; path = "Target Support Files/Pods-studyplanet/Pods-studyplanet.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1719F049259A91800067A49D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79DB83D7DC48CCCE7C8746F9 /* libPods-studyplanet.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1719F043259A91800067A49D = {
+			isa = PBXGroup;
+			children = (
+				17205C04259A9DC000C1B021 /* Images */,
+				1719F04E259A91800067A49D /* studyplanet */,
+				1719F04D259A91800067A49D /* Products */,
+				5924EEDE48719D4661157AE4 /* Pods */,
+				5EF792340923E3CEBD83F4BB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1719F04D259A91800067A49D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1719F04C259A91800067A49D /* studyplanet.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1719F04E259A91800067A49D /* studyplanet */ = {
+			isa = PBXGroup;
+			children = (
+				1719F055259A91800067A49D /* Main.storyboard */,
+				17205C27259AA58B00C1B021 /* Delegates */,
+				17205BFD259A9D2B00C1B021 /* Controllers */,
+				1719F05B259A91830067A49D /* Assets.xcassets */,
+				1719F05D259A91830067A49D /* LaunchScreen.storyboard */,
+				1719F060259A91830067A49D /* Info.plist */,
+				1719F058259A91800067A49D /* studyplanet.xcdatamodeld */,
+			);
+			path = studyplanet;
+			sourceTree = "<group>";
+		};
+		17205BFD259A9D2B00C1B021 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				17205BFE259A9D4700C1B021 /* WelcomeController.swift */,
+				17205C1D259AA32E00C1B021 /* StartupViewController.swift */,
+				17205C26259AA4AB00C1B021 /* Module Table View */,
+				177806E4259B7FDA00B766F0 /* Plan */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		17205C04259A9DC000C1B021 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				17205C0B259A9E4A00C1B021 /* shade.png */,
+				17205C16259AA26400C1B021 /* containeroutline1.png */,
+				17205C0A259A9E4900C1B021 /* studyplanettext.png */,
+				17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */,
+				177806FA259CB33600B766F0 /* calenderbackground.png */,
+				17780702259CB62D00B766F0 /* plannerprogress.png */,
+				17205C01259A9DB600C1B021 /* appbackground.png */,
+				17780705259CBC5A00B766F0 /* plannerplus.png */,
+				17205C19259AA28900C1B021 /* continue.png */,
+				17205C11259A9E7E00C1B021 /* setupplanner.png */,
+				17205C12259A9E7F00C1B021 /* Startup_Earth.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		17205C26259AA4AB00C1B021 /* Module Table View */ = {
+			isa = PBXGroup;
+			children = (
+				17205C1C259AA32D00C1B021 /* ModuleViewController.swift */,
+				17205C21259AA49F00C1B021 /* ModuleTableViewCell.swift */,
+				17205C22259AA49F00C1B021 /* ModuleTableViewCell.xib */,
+			);
+			path = "Module Table View";
+			sourceTree = "<group>";
+		};
+		17205C27259AA58B00C1B021 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				1719F04F259A91800067A49D /* AppDelegate.swift */,
+				1719F051259A91800067A49D /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		177806E4259B7FDA00B766F0 /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				1719F053259A91800067A49D /* PlanViewController.swift */,
+				177806EC259C017800B766F0 /* PlanTableViewCell.swift */,
+				177806F3259CA63B00B766F0 /* PlanTableViewCell.xib */,
+				17205BFA259A987500C1B021 /* DateCell.swift */,
+			);
+			path = Plan;
+			sourceTree = "<group>";
+		};
+		5924EEDE48719D4661157AE4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				35878DA75B0013EA8ED9CFE1 /* Pods-studyplanet.debug.xcconfig */,
+				5A64BDDAD8FEE619C29810E3 /* Pods-studyplanet.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5EF792340923E3CEBD83F4BB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				462E0F493B3FE78D744C8D4C /* libPods-studyplanet.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1719F04B259A91800067A49D /* studyplanet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1719F063259A91830067A49D /* Build configuration list for PBXNativeTarget "studyplanet" */;
+			buildPhases = (
+				2105B071C9CB756635763FA9 /* [CP] Check Pods Manifest.lock */,
+				1719F048259A91800067A49D /* Sources */,
+				1719F049259A91800067A49D /* Frameworks */,
+				1719F04A259A91800067A49D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = studyplanet;
+			productName = studyplanet;
+			productReference = 1719F04C259A91800067A49D /* studyplanet.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1719F044259A91800067A49D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1230;
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					1719F04B259A91800067A49D = {
+						CreatedOnToolsVersion = 12.3;
+					};
+				};
+			};
+			buildConfigurationList = 1719F047259A91800067A49D /* Build configuration list for PBXProject "studyplanet" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1719F043259A91800067A49D;
+			productRefGroup = 1719F04D259A91800067A49D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1719F04B259A91800067A49D /* studyplanet */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1719F04A259A91800067A49D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17205C13259A9E7F00C1B021 /* setupplanner.png in Resources */,
+				17780703259CB62D00B766F0 /* plannerprogress.png in Resources */,
+				17205C24259AA49F00C1B021 /* ModuleTableViewCell.xib in Resources */,
+				1719F05F259A91830067A49D /* LaunchScreen.storyboard in Resources */,
+				17205C1A259AA28900C1B021 /* continue.png in Resources */,
+				17205C14259A9E7F00C1B021 /* Startup_Earth.png in Resources */,
+				17780706259CBC5A00B766F0 /* plannerplus.png in Resources */,
+				17205C02259A9DB700C1B021 /* appbackground.png in Resources */,
+				177806F4259CA63B00B766F0 /* PlanTableViewCell.xib in Resources */,
+				17EDF7AC259AADCC0002C1D4 /* world_with_shade.png in Resources */,
+				17205C0E259A9E4A00C1B021 /* shade.png in Resources */,
+				1719F05C259A91830067A49D /* Assets.xcassets in Resources */,
+				17205C0D259A9E4A00C1B021 /* studyplanettext.png in Resources */,
+				1719F057259A91800067A49D /* Main.storyboard in Resources */,
+				17205C17259AA26400C1B021 /* containeroutline1.png in Resources */,
+				177806FB259CB33600B766F0 /* calenderbackground.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2105B071C9CB756635763FA9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-studyplanet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1719F048259A91800067A49D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17205C1F259AA32E00C1B021 /* StartupViewController.swift in Sources */,
+				17205BFF259A9D4700C1B021 /* WelcomeController.swift in Sources */,
+				1719F054259A91800067A49D /* PlanViewController.swift in Sources */,
+				17205C1E259AA32E00C1B021 /* ModuleViewController.swift in Sources */,
+				17205C23259AA49F00C1B021 /* ModuleTableViewCell.swift in Sources */,
+				177806EE259C017800B766F0 /* PlanTableViewCell.swift in Sources */,
+				17205BFB259A987500C1B021 /* DateCell.swift in Sources */,
+				1719F05A259A91800067A49D /* studyplanet.xcdatamodeld in Sources */,
+				1719F050259A91800067A49D /* AppDelegate.swift in Sources */,
+				1719F052259A91800067A49D /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1719F055259A91800067A49D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1719F056259A91800067A49D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1719F05D259A91830067A49D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1719F05E259A91830067A49D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1719F061259A91830067A49D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1719F062259A91830067A49D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1719F064259A91830067A49D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35878DA75B0013EA8ED9CFE1 /* Pods-studyplanet.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X2V4844DFU;
+				INFOPLIST_FILE = studyplanet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = uni.studyplanet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1719F065259A91830067A49D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A64BDDAD8FEE619C29810E3 /* Pods-studyplanet.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X2V4844DFU;
+				INFOPLIST_FILE = studyplanet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = uni.studyplanet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1719F047259A91800067A49D /* Build configuration list for PBXProject "studyplanet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1719F061259A91830067A49D /* Debug */,
+				1719F062259A91830067A49D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1719F063259A91830067A49D /* Build configuration list for PBXNativeTarget "studyplanet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1719F064259A91830067A49D /* Debug */,
+				1719F065259A91830067A49D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1719F058259A91800067A49D /* studyplanet.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1719F059259A91800067A49D /* studyplanet.xcdatamodel */,
+			);
+			currentVersion = 1719F059259A91800067A49D /* studyplanet.xcdatamodel */;
+			path = studyplanet.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 1719F044259A91800067A49D /* Project object */;
+}
