@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class ModuleTableViewCell: UITableViewCell {
 
     static let identifier = "ModuleTableViewCell"
@@ -16,11 +18,21 @@ class ModuleTableViewCell: UITableViewCell {
     }
     
     public func configure(with title:String){
-        moduleLabel.text = "test"
+        moduleLabel.text = title
     }
     
     @IBOutlet var moduleLabel: UILabel!
     @IBOutlet var moduleSlider: UISlider!
+    
+    
+  
+    @IBAction func moduleSliderChanged(_ sender: UISlider) {
+        let module = moduleLabel.text
+        let confidence = Int(sender.value)
+        
+        MainVC.changeConfidence(module: module!, confidence: confidence)
+        
+    }
     @IBOutlet var moduleInput: UITextField!
 
     override func awakeFromNib() {

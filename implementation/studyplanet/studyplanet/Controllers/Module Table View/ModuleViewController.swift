@@ -7,6 +7,8 @@
 
 import UIKit
 
+var MainVC = ModuleViewController()
+
 class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var moduleMessageLabel: UILabel!
@@ -14,6 +16,10 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var name : String!
     var course : String!
     var modules = [String]()
+    var modulesDict = [String : Int]() //modules:confidence
+    var confidences = [String]()
+    var selectedDays = [String]()
+    var dailyStudyHours : Int!
     
     //@IBAction func toAvailability(_ sender: UIButton) {
      //   self.performSegue(withIdentifier: "availabilitySegue", sender: self)
@@ -24,6 +30,8 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addButton(_ sender: UIButton) {
+        
+
         let alert = UIAlertController(title: "add module", message:nil, preferredStyle: .alert)
         alert.addTextField {(moduleTF) in
             moduleTF.placeholder = "COMP101"
@@ -31,7 +39,6 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let action = UIAlertAction(title: "add", style: .default) { (_) in
             guard let module = alert.textFields?.first?.text else {return}
-            print(module)
             self.add(module)
         }
         alert.addAction(action)
@@ -41,10 +48,13 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func add(_ module: String) {
         let index = 0
         modules.insert(module, at: index)
+        modulesDict.updateValue(50, forKey: module)
         let indexPath = IndexPath(row: index, section: 0)
-        
-        tableView.insertRows(at: [indexPath], with: .top
-        )
+        tableView.insertRows(at: [indexPath], with: .top)
+    }
+    
+    func changeConfidence(module: String, confidence: Int){
+        modulesDict.updateValue(confidence, forKey: module)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,14 +62,10 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let module = modules[indexPath.row]
-        //cell.textLabel?.text = module
-        //return cell
+        print("in module tableview")
+       let module = modules[indexPath.row]
        let customCell = tableView.dequeueReusableCell(withIdentifier: ModuleTableViewCell.identifier, for: indexPath) as! ModuleTableViewCell
-            
         customCell.configure(with: module)
-            
         return customCell
     }
     
@@ -73,17 +79,19 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var moduleTable: UITableView!
     
     
-  /* override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "plannerSegue" {
-            let vc = segue.destination as! PlannerViewController
+            let vc = segue.destination as! PlanViewController
             vc.name = name
             vc.course = course
+            vc.selectedDays = selectedDays
             vc.modules = modules
+            vc.modulesDict = modulesDict
+            vc.dailyStudyHours = dailyStudyHours
         }
-    }*/
+    }
     
     override func viewDidLoad() {
-        print("test")
         super.viewDidLoad()
         moduleTable.register(ModuleTableViewCell.nib(), forCellReuseIdentifier: ModuleTableViewCell.identifier)
         

@@ -22,8 +22,6 @@ class PlanTableViewCell: UITableViewCell {
     
     public func configure(with title:String){
         moduleLabel.text = title
-        //timeLabel.text = title
-        //studyTime.text = "stime"
     }
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -9,10 +9,11 @@ import UIKit
 
 class StartupViewController: UIViewController{
     // instantiate variables
-    var name = "" // users name
-    var course = "" // users course
-    var dailyStudyHours = 1 // default daily hours for study
-    var selectedDays = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"] // default study days
+    var name : String!
+    var course : String!
+    var modules = [String]()
+    var selectedDays = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
+    var dailyStudyHours : Int!
     
     // reference outlets
     @IBOutlet weak var nameTF: UITextField!
@@ -152,6 +153,8 @@ class StartupViewController: UIViewController{
             let vc = segue.destination as! ModuleViewController
             vc.name = name
             vc.course = course
+            vc.selectedDays = selectedDays
+            vc.dailyStudyHours = dailyStudyHours
         }
     }
     

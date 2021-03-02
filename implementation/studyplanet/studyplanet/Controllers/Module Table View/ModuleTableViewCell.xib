@@ -17,12 +17,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="307" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mkx-pp-pmN">
+                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="mkx-pp-pmN">
                         <rect key="frame" x="135" y="7" width="158" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="tintColor" red="0.1149954274" green="0.68363517519999994" blue="0.68162482980000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <imageReference key="maximumValueImage" image="face.smiling.fill" catalog="system" symbolScale="medium" renderingMode="template"/>
                         <color key="minimumTrackTintColor" red="0.1149954274" green="0.68363517519999994" blue="0.68162482980000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <action selector="moduleSliderChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="kM1-IN-nfW"/>
+                        </connections>
                     </slider>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="module" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egj-Pa-n9J">
                         <rect key="frame" x="7" y="12" width="122" height="21"/>
