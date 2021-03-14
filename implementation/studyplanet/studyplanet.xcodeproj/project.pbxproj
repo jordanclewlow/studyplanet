@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1712828225FD69A50050E8E0 /* inspo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1712828125FD69A50050E8E0 /* inspo2.png */; };
+		1712828925FD9C060050E8E0 /* addbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1712828825FD9C060050E8E0 /* addbutton.png */; };
 		1719F050259A91800067A49D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719F04F259A91800067A49D /* AppDelegate.swift */; };
 		1719F052259A91800067A49D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719F051259A91800067A49D /* SceneDelegate.swift */; };
 		1719F054259A91800067A49D /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719F053259A91800067A49D /* PlanViewController.swift */; };
@@ -27,6 +29,7 @@
 		17205C1F259AA32E00C1B021 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205C1D259AA32E00C1B021 /* StartupViewController.swift */; };
 		17205C23259AA49F00C1B021 /* ModuleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205C21259AA49F00C1B021 /* ModuleTableViewCell.swift */; };
 		17205C24259AA49F00C1B021 /* ModuleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17205C22259AA49F00C1B021 /* ModuleTableViewCell.xib */; };
+		1748E0D325FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1748E0D225FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg */; };
 		177806EE259C017800B766F0 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177806EC259C017800B766F0 /* PlanTableViewCell.swift */; };
 		177806F4259CA63B00B766F0 /* PlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 177806F3259CA63B00B766F0 /* PlanTableViewCell.xib */; };
 		177806FB259CB33600B766F0 /* calenderbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 177806FA259CB33600B766F0 /* calenderbackground.png */; };
@@ -37,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1712828125FD69A50050E8E0 /* inspo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inspo2.png; path = ../../../design/Inspiration/inspo2.png; sourceTree = "<group>"; };
+		1712828825FD9C060050E8E0 /* addbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addbutton.png; sourceTree = "<group>"; };
 		1719F04C259A91800067A49D /* studyplanet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studyplanet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1719F04F259A91800067A49D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1719F051259A91800067A49D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +64,7 @@
 		17205C1D259AA32E00C1B021 /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		17205C21259AA49F00C1B021 /* ModuleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleTableViewCell.swift; sourceTree = "<group>"; };
 		17205C22259AA49F00C1B021 /* ModuleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleTableViewCell.xib; sourceTree = "<group>"; };
+		1748E0D225FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "to-do-app-ui-design-55.jpeg"; path = "../../../design/to-do-app-ui-design-55.jpeg"; sourceTree = "<group>"; };
 		177806EC259C017800B766F0 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableViewCell.swift; sourceTree = "<group>"; };
 		177806F3259CA63B00B766F0 /* PlanTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanTableViewCell.xib; sourceTree = "<group>"; };
 		177806FA259CB33600B766F0 /* calenderbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calenderbackground.png; sourceTree = "<group>"; };
@@ -129,8 +135,11 @@
 		17205C04259A9DC000C1B021 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1748E0D225FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg */,
 				17205C0B259A9E4A00C1B021 /* shade.png */,
 				17205C16259AA26400C1B021 /* containeroutline1.png */,
+				1712828125FD69A50050E8E0 /* inspo2.png */,
+				1712828825FD9C060050E8E0 /* addbutton.png */,
 				17205C0A259A9E4900C1B021 /* studyplanettext.png */,
 				17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */,
 				177806FA259CB33600B766F0 /* calenderbackground.png */,
@@ -252,6 +261,8 @@
 				17205C13259A9E7F00C1B021 /* setupplanner.png in Resources */,
 				17780703259CB62D00B766F0 /* plannerprogress.png in Resources */,
 				17205C24259AA49F00C1B021 /* ModuleTableViewCell.xib in Resources */,
+				1748E0D325FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg in Resources */,
+				1712828225FD69A50050E8E0 /* inspo2.png in Resources */,
 				1719F05F259A91830067A49D /* LaunchScreen.storyboard in Resources */,
 				17205C1A259AA28900C1B021 /* continue.png in Resources */,
 				17205C14259A9E7F00C1B021 /* Startup_Earth.png in Resources */,
@@ -265,6 +276,7 @@
 				1719F057259A91800067A49D /* Main.storyboard in Resources */,
 				17205C17259AA26400C1B021 /* containeroutline1.png in Resources */,
 				177806FB259CB33600B766F0 /* calenderbackground.png in Resources */,
+				1712828925FD9C060050E8E0 /* addbutton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
