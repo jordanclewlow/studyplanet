@@ -10,7 +10,7 @@ import UIKit
 
 
 class ModuleTableViewCell: UITableViewCell {
-
+    var delegate: ModuleViewController?
     static let identifier = "ModuleTableViewCell"
     
     static func nib() -> UINib{
@@ -30,7 +30,7 @@ class ModuleTableViewCell: UITableViewCell {
         let module = moduleLabel.text
         let confidence = Int(sender.value)
         
-        MainVC.changeConfidence(module: module!, confidence: confidence)
+        delegate?.changeConfidence(module: module!, confidence: confidence)
         
     }
     @IBOutlet var moduleInput: UITextField!

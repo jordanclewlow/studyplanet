@@ -7,9 +7,9 @@
 
 import UIKit
 
-var MainVC = ModuleViewController()
 
 class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+        
     
     @IBOutlet weak var moduleMessageLabel: UILabel!
     
@@ -66,6 +66,8 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
        let module = modules[indexPath.row]
        let customCell = tableView.dequeueReusableCell(withIdentifier: ModuleTableViewCell.identifier, for: indexPath) as! ModuleTableViewCell
         customCell.configure(with: module)
+        
+        customCell.delegate = self
         return customCell
     }
     

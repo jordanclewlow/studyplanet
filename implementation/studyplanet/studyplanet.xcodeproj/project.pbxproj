@@ -35,6 +35,9 @@
 		177806FB259CB33600B766F0 /* calenderbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 177806FA259CB33600B766F0 /* calenderbackground.png */; };
 		17780703259CB62D00B766F0 /* plannerprogress.png in Resources */ = {isa = PBXBuildFile; fileRef = 17780702259CB62D00B766F0 /* plannerprogress.png */; };
 		17780706259CBC5A00B766F0 /* plannerplus.png in Resources */ = {isa = PBXBuildFile; fileRef = 17780705259CBC5A00B766F0 /* plannerplus.png */; };
+		178DE834260247D1006AE7AA /* darkworld_with_shade.png in Resources */ = {isa = PBXBuildFile; fileRef = 178DE833260247D0006AE7AA /* darkworld_with_shade.png */; };
+		178DE83726027BFC006AE7AA /* plusBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 178DE83626027BFB006AE7AA /* plusBlue.png */; };
+		178DE83A26027E1D006AE7AA /* plusGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 178DE83926027E1D006AE7AA /* plusGreen.png */; };
 		17EDF7AC259AADCC0002C1D4 /* world_with_shade.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */; };
 		79DB83D7DC48CCCE7C8746F9 /* libPods-studyplanet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 462E0F493B3FE78D744C8D4C /* libPods-studyplanet.a */; };
 /* End PBXBuildFile section */
@@ -70,6 +73,9 @@
 		177806FA259CB33600B766F0 /* calenderbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calenderbackground.png; sourceTree = "<group>"; };
 		17780702259CB62D00B766F0 /* plannerprogress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plannerprogress.png; sourceTree = "<group>"; };
 		17780705259CBC5A00B766F0 /* plannerplus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plannerplus.png; sourceTree = "<group>"; };
+		178DE833260247D0006AE7AA /* darkworld_with_shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkworld_with_shade.png; sourceTree = "<group>"; };
+		178DE83626027BFB006AE7AA /* plusBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusBlue.png; sourceTree = "<group>"; };
+		178DE83926027E1D006AE7AA /* plusGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusGreen.png; sourceTree = "<group>"; };
 		17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_with_shade.png; sourceTree = "<group>"; };
 		35878DA75B0013EA8ED9CFE1 /* Pods-studyplanet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studyplanet.debug.xcconfig"; path = "Target Support Files/Pods-studyplanet/Pods-studyplanet.debug.xcconfig"; sourceTree = "<group>"; };
 		462E0F493B3FE78D744C8D4C /* libPods-studyplanet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-studyplanet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +134,7 @@
 				17205C1D259AA32E00C1B021 /* StartupViewController.swift */,
 				17205C26259AA4AB00C1B021 /* Module Table View */,
 				177806E4259B7FDA00B766F0 /* Plan */,
+				178DE83D26029EA8006AE7AA /* Configure */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -141,7 +148,10 @@
 				1712828125FD69A50050E8E0 /* inspo2.png */,
 				1712828825FD9C060050E8E0 /* addbutton.png */,
 				17205C0A259A9E4900C1B021 /* studyplanettext.png */,
+				178DE83626027BFB006AE7AA /* plusBlue.png */,
 				17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */,
+				178DE833260247D0006AE7AA /* darkworld_with_shade.png */,
+				178DE83926027E1D006AE7AA /* plusGreen.png */,
 				177806FA259CB33600B766F0 /* calenderbackground.png */,
 				17780702259CB62D00B766F0 /* plannerprogress.png */,
 				17205C01259A9DB600C1B021 /* appbackground.png */,
@@ -181,6 +191,13 @@
 				17205BFA259A987500C1B021 /* DateCell.swift */,
 			);
 			path = Plan;
+			sourceTree = "<group>";
+		};
+		178DE83D26029EA8006AE7AA /* Configure */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Configure;
 			sourceTree = "<group>";
 		};
 		5924EEDE48719D4661157AE4 /* Pods */ = {
@@ -258,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				178DE834260247D1006AE7AA /* darkworld_with_shade.png in Resources */,
 				17205C13259A9E7F00C1B021 /* setupplanner.png in Resources */,
 				17780703259CB62D00B766F0 /* plannerprogress.png in Resources */,
 				17205C24259AA49F00C1B021 /* ModuleTableViewCell.xib in Resources */,
@@ -266,6 +284,7 @@
 				1719F05F259A91830067A49D /* LaunchScreen.storyboard in Resources */,
 				17205C1A259AA28900C1B021 /* continue.png in Resources */,
 				17205C14259A9E7F00C1B021 /* Startup_Earth.png in Resources */,
+				178DE83A26027E1D006AE7AA /* plusGreen.png in Resources */,
 				17780706259CBC5A00B766F0 /* plannerplus.png in Resources */,
 				17205C02259A9DB700C1B021 /* appbackground.png in Resources */,
 				177806F4259CA63B00B766F0 /* PlanTableViewCell.xib in Resources */,
@@ -275,6 +294,7 @@
 				17205C0D259A9E4A00C1B021 /* studyplanettext.png in Resources */,
 				1719F057259A91800067A49D /* Main.storyboard in Resources */,
 				17205C17259AA26400C1B021 /* containeroutline1.png in Resources */,
+				178DE83726027BFC006AE7AA /* plusBlue.png in Resources */,
 				177806FB259CB33600B766F0 /* calenderbackground.png in Resources */,
 				1712828925FD9C060050E8E0 /* addbutton.png in Resources */,
 			);
