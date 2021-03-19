@@ -11,19 +11,17 @@ import UIKit
 class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     
+    @IBOutlet weak var mondayBtnOutlet: UIButton!
     @IBOutlet weak var moduleMessageLabel: UILabel!
     
-    var name : String!
-    var course : String!
     var modules = [String]()
-    var modulesDict = [String : Int]() //modules:confidence
+    var modulesDict = [String : Int]()                          //modules:confidence
     var confidences = [String]()
-    var selectedDays = [String]()
-    var dailyStudyHours : Int!
-    
-    //@IBAction func toAvailability(_ sender: UIButton) {
-     //   self.performSegue(withIdentifier: "availabilitySegue", sender: self)
-    //}
+    var selectedDays = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
+    var dailyStudyHours = 2 // default
+    var interval : Int!
+    var startingTime = 10
+
     
     @IBOutlet weak var moduleTitleLabel: UILabel!
     
@@ -57,6 +55,152 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         modulesDict.updateValue(confidence, forKey: module)
     }
     
+    
+    @IBAction func toPlanBtn(_ sender: UIButton) {
+        if(modules.count != 0){
+            performSegue(withIdentifier: "plannerSegue", sender: nil )
+        }
+    }
+    func findAmountOfSessions() -> Int{
+        var answer = startingTime
+        for _ in 1...dailyStudyHours {
+            answer += interval
+            if (answer >= 24){
+                answer = answer - interval
+                break
+            }
+        }
+        return answer
+    }
+    @IBOutlet weak var dailyTotalSlider: UISlider!
+
+
+    // reference actions
+    @IBAction func dailyTotalSliderChanged(_ sender: UISlider) {
+        dailyStudyHours = Int(sender.value) // change study hours to slider value
+    }
+    
+    @IBAction func intervalSliderChanged(_ sender: UISlider) {
+        interval = Int(sender.value) // change study hours to slider value
+    }
+    
+    @IBAction func mondayButton(_ sender: UIButton) {
+        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+
+        let button = sender
+        if button.isSelected {
+                // set deselected
+            button.isSelected = false
+            let mondayPos = selectedDays.firstIndex(of: "monday")
+            selectedDays.remove(at: mondayPos!)
+            
+        } else {
+            // set selected
+
+            button.isSelected = true
+            selectedDays.append("monday")
+        }
+    }
+    
+    @IBAction func tuesdayButton(_ sender: UIButton) {
+        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+
+        let button = sender
+        if button.isSelected {
+                // set deselected
+            button.isSelected = false
+            let tuesdayPos = selectedDays.firstIndex(of: "tuesday")
+            selectedDays.remove(at: tuesdayPos!)
+        } else {
+            // set selected
+            button.isSelected = true
+            selectedDays.append("tuesday")
+        }
+    }
+    @IBAction func wednesdayButton(_ sender: UIButton) {
+        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+
+        let button = sender
+        if button.isSelected {
+                // set deselected
+            button.isSelected = false
+            let wednesdayPos = selectedDays.firstIndex(of: "wednesday")
+            selectedDays.remove(at: wednesdayPos!)
+        } else {
+            // set selected
+            button.isSelected = true
+            selectedDays.append("wednesday")
+        }
+    }
+    
+    @IBAction func thursdayButton(_ sender: UIButton) {
+        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+
+        let button = sender
+        if button.isSelected {
+                // set deselected
+            button.isSelected = false
+            let thursdayPos = selectedDays.firstIndex(of: "thursday")
+            selectedDays.remove(at: thursdayPos!)
+        } else {
+            // set selected
+            button.isSelected = true
+            selectedDays.append("thursday")
+        }
+    }
+    
+    @IBAction func fridayButton(_ sender: UIButton) {
+        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+
+        let button = sender
+        if button.isSelected {
+                // set deselected
+            button.isSelected = false
+            let fridayPos = selectedDays.firstIndex(of: "friday")
+            selectedDays.remove(at: fridayPos!)
+        } else {
+            // set selected
+            button.isSelected = true
+            selectedDays.append("friday")
+        }
+    }
+    
+    @IBAction func saturdayButton(_ sender: UIButton) {
+        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+
+        let button = sender
+        if button.isSelected {
+                // set deselected
+            button.isSelected = false
+            let saturdayPos = selectedDays.firstIndex(of: "saturday")
+            selectedDays.remove(at: saturdayPos!)
+        } else {
+            // set selected
+            button.isSelected = true
+            selectedDays.append("saturday")
+        }
+    }
+    
+    @IBAction func sundayButton(_ sender: UIButton) {
+        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+
+        let button = sender
+        if button.isSelected {
+                // set deselected
+            button.isSelected = false
+            let sundayPos = selectedDays.firstIndex(of: "sunday")
+            selectedDays.remove(at: sundayPos!)
+        } else {
+            // set selected
+            button.isSelected = true
+            selectedDays.append("sunday")
+        }
+    }
+    
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modules.count
     }
@@ -84,14 +228,14 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "plannerSegue" {
             let vc = segue.destination as! PlanViewController
-            vc.name = name
-            vc.course = course
             vc.selectedDays = selectedDays
             vc.modules = modules
             vc.modulesDict = modulesDict
             vc.dailyStudyHours = dailyStudyHours
         }
     }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,8 +244,9 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         moduleTable.delegate = self
         moduleTable.dataSource = self
         
-        moduleTitleLabel.text = "Thanks !"
-       moduleMessageLabel.text = "All we need now is to know your modules you do in your " /*+ course + " course and how confident you are in them."
+        
+       
+        
         // Do any additional setup after loading the view.*/
     }
 

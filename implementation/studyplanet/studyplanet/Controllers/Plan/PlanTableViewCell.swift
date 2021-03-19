@@ -23,7 +23,7 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var tickBtn: UIButton!
     
 
-    let currentTime = 20//Calendar.current.component(.hour, from: Date())
+    let currentTime = Calendar.current.component(.hour, from: Date())
     var revisionSlotTime = 0
     var currentDayNum = 0
     var dayOfTheWeekString = ""
@@ -61,34 +61,66 @@ class PlanTableViewCell: UITableViewCell {
     
     // when you tick off a session
     func sessionCompleted(indexPath: IndexPath, _ sender: UIButton){
-        let alert = UIAlertController(title: "Have you completed this task?", message: "This will be added to your progress", preferredStyle: .alert)
+        
+        if(isItOnGoing()){ //
+            let alert = UIAlertController(title: "Have you completed this task?", message: "This task is currently on going.", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
-            if delegate?.daySelected == "monday" {
-                delegate?.mondayCompleted[indexPath.row] = true
-            } else if delegate?.daySelected == "tuesday" {
-                delegate?.tuesdayCompleted[indexPath.row] = true
-            } else if delegate?.daySelected == "wednesday" {
-                delegate?.wednesdayCompleted[indexPath.row] = true
-            } else if delegate?.daySelected == "thursday" {
-                delegate?.thursdayCompleted[indexPath.row] = true
-            } else if delegate?.daySelected == "friday" {
-                delegate?.fridayCompleted[indexPath.row] = true
-            } else if delegate?.daySelected == "saturday" {
-                delegate?.saturdayCompleted[indexPath.row] = true
-            } else if delegate?.daySelected == "sunday" {
-                delegate?.sundayCompleted[indexPath.row] = true
-            }
-            sender.isSelected.toggle()
-            backgroundCell.backgroundColor = planetGreen
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
+                if delegate?.daySelected == "monday" {
+                    delegate?.mondayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "tuesday" {
+                    delegate?.tuesdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "wednesday" {
+                    delegate?.wednesdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "thursday" {
+                    delegate?.thursdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "friday" {
+                    delegate?.fridayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "saturday" {
+                    delegate?.saturdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "sunday" {
+                    delegate?.sundayCompleted[indexPath.row] = true
+                }
+                sender.isSelected.toggle()
+                backgroundCell.backgroundColor = planetGreen
+                
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { [self] action in
+                completed = false
+            }))
             
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { [self] action in
-            completed = false
-        }))
-        
-        delegate?.present(alert, animated: true)
-        
+            delegate?.present(alert, animated: true)
+            
+        } else{
+            let alert = UIAlertController(title: "Have you completed this task?", message: "This task starts at " + String(revisionSlotTime) + ":00", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
+                if delegate?.daySelected == "monday" {
+                    delegate?.mondayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "tuesday" {
+                    delegate?.tuesdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "wednesday" {
+                    delegate?.wednesdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "thursday" {
+                    delegate?.thursdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "friday" {
+                    delegate?.fridayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "saturday" {
+                    delegate?.saturdayCompleted[indexPath.row] = true
+                } else if delegate?.daySelected == "sunday" {
+                    delegate?.sundayCompleted[indexPath.row] = true
+                }
+                sender.isSelected.toggle()
+                backgroundCell.backgroundColor = planetGreen
+                
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { [self] action in
+                completed = false
+            }))
+            
+            delegate?.present(alert, animated: true)
+            
+        }
     }
     
 
@@ -96,19 +128,7 @@ class PlanTableViewCell: UITableViewCell {
     public func configure(with title:String, time:Int, indexPath: IndexPath, selectedDayNum: Int, selectedDayOfTheWeekString: String){
         timeLabel.text = String(time) + ":00"
         revisionSlotTime = time
-
         
-        
-        if(!isItToday()){ // hide tick button if it isnt todays plan
-            tickBtn.isHidden = true
-        } else{
-            tickBtn.isHidden = false
-        }
-        
-        backgroundCell.layer.borderWidth = 0
-        moduleLabel.textColor = UIColor.white
-        timeLabel.textColor = UIColor.white
-        backgroundCell.backgroundColor = UIColor.black
         
         let strikeTitle: NSMutableAttributedString =  NSMutableAttributedString(string: title)
         strikeTitle.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, strikeTitle.length))
@@ -117,6 +137,9 @@ class PlanTableViewCell: UITableViewCell {
         moduleLabel.attributedText = nonStrikeTitle
         
         if(isItToday()){
+            tickBtn.isHidden = false
+            moduleLabel.textColor = UIColor.white
+            timeLabel.textColor = UIColor.white
             if(isItMissed()){ // it is missed
                 backgroundCell.backgroundColor = planetRed
                 tickBtn.isHidden = true
@@ -124,22 +147,22 @@ class PlanTableViewCell: UITableViewCell {
                 strikeTitle.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, strikeTitle.length))
                 moduleLabel.attributedText = strikeTitle
 
-            } else{ // it isnt missed
+            } else if (!isItCompleted(indexPath: indexPath)){ // it isnt missed
                 backgroundCell.backgroundColor = UIColor.white
                 moduleLabel.textColor = UIColor.black
                 timeLabel.textColor = UIColor.black
                 moduleLabel.attributedText = nonStrikeTitle
-        
             }
             
-            if(isItUpcoming()){// make upcoming sessions yellow
+            if(!isItCompleted(indexPath: indexPath)) && isItUpcoming() {// make upcoming sessions yellow
                 tickBtn.isHidden = false
                 moduleLabel.textColor = UIColor.white
                 timeLabel.textColor = UIColor.white
                 backgroundCell.backgroundColor = planetYellow
             }
             
-            if(isItOnGoing()){
+            if(isItOnGoing() && !isItMissed()){
+                tickBtn.isHidden = false
                 moduleLabel.textColor = UIColor.white
                 timeLabel.textColor = UIColor.white
                 backgroundCell.backgroundColor = planetBlue
@@ -150,17 +173,22 @@ class PlanTableViewCell: UITableViewCell {
                 tickBtn.isHidden = true
             }
             
-            if(isItCompleted(indexPath: indexPath)){ // if it is completed
+            if(isItCompleted(indexPath: indexPath)){ // if it is today,completed
                 if(!tickBtn.isSelected){ // if not selected
                     tickBtn.isSelected.toggle() // select
                     backgroundCell.backgroundColor = planetGreen
                 }
             } else { // if not completed
-                if(tickBtn.isSelected){ // if not selected
-                    tickBtn.isSelected.toggle() // select
-                    backgroundCell.backgroundColor = planetRed
+                if(tickBtn.isSelected){ // if selected
+                    tickBtn.isSelected.toggle() // deselect
                 }
             }
+        } else{ // not today
+            moduleLabel.textColor = UIColor.white
+            timeLabel.textColor = UIColor.white
+            backgroundCell.backgroundColor = UIColor.black
+            tickBtn.isHidden = true
+
         }
         
     }
@@ -224,7 +252,6 @@ class PlanTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundCell.layer.borderWidth = 1
         //bbackgroundCell.backgroundColor = UIColor.white.cgColor
         backgroundCell.layer.cornerRadius = backgroundCell.frame.height / 2//2.3
         let date = Date()
@@ -235,6 +262,7 @@ class PlanTableViewCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         dayOfTheWeekString = dateFormatter.string(from: date).lowercased()
+        
         
         
         // Initialization code

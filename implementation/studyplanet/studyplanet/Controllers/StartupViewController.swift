@@ -151,8 +151,7 @@ class StartupViewController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "moduleSegue" {
             let vc = segue.destination as! ModuleViewController
-            vc.name = name
-            vc.course = course
+           
             vc.selectedDays = selectedDays
             vc.dailyStudyHours = dailyStudyHours
         }

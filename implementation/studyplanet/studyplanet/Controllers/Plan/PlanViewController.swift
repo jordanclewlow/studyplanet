@@ -6,6 +6,7 @@ import JTAppleCalendar
 
 class PlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // instantiate outlets
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var calendarBox: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var planTable: UITableView!
@@ -82,13 +83,13 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     // ******************** DUMMY ********************
-    var name = "jordan" // users name
-   var course = "compsci" // users course
-   var dailyStudyHours = 10 // default daily hours for study
+  
+    
+   var dailyStudyHours = 6 // default daily hours for study
     var startingTime = 10 // default daily hours for study
     var modulesDict = ["english" : 50 , "maths":50,"science":50]
     var modules = ["english" , "maths","science"]
-   var  selectedDays = ["monday","tuesday","thursday","friday"]
+   var  selectedDays = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
     var interval = 2
     
     // formatter for dates
@@ -119,10 +120,6 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         calendarView.scrollToDate(date) {
            self.calendarView.selectDates([date])
         }
-        self.calendarView.selectDates([date])
-        
-        self.calendarView.scrollToDate(Date())
-                    self.calendarView.selectDates([Date()])
         
         // refresh the planner
         tableView.reloadData()
@@ -258,8 +255,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         var percentageWeeklyHours = [Double]() // percentage of the total hours
         for module in modules
         {
-            name = module
-            let percentageOfConfidence = (Double(swappedModulesDict[name]!) / Double(sumConfidence)) * 100
+            let moduleTitle = module
+            let percentageOfConfidence = (Double(swappedModulesDict[moduleTitle]!) / Double(sumConfidence)) * 100
             let hours = calculatePercentage(value: Double(weeklyStudyHours),percentageVal: percentageOfConfidence)
             percentageWeeklyHours.append(hours)
         }
@@ -382,6 +379,11 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
 
+}
+
+extension StringProtocol {
+    var firstUppercased: String { return prefix(1).uppercased() + dropFirst() }
+    var firstCapitalized: String { return prefix(1).capitalized + dropFirst() }
 }
 
 extension JTAppleCalendarView {

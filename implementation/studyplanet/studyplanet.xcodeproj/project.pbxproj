@@ -29,6 +29,9 @@
 		17205C1F259AA32E00C1B021 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205C1D259AA32E00C1B021 /* StartupViewController.swift */; };
 		17205C23259AA49F00C1B021 /* ModuleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17205C21259AA49F00C1B021 /* ModuleTableViewCell.swift */; };
 		17205C24259AA49F00C1B021 /* ModuleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17205C22259AA49F00C1B021 /* ModuleTableViewCell.xib */; };
+		17481C682603F3D70014881A /* invertmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 17481C672603F3D60014881A /* invertmoon.png */; };
+		17481C6E26041E320014881A /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17481C6D26041E320014881A /* ProgressViewController.swift */; };
+		17481C7126041E6D0014881A /* ProgressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17481C7026041E6D0014881A /* ProgressViewCell.swift */; };
 		1748E0D325FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1748E0D225FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg */; };
 		177806EE259C017800B766F0 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177806EC259C017800B766F0 /* PlanTableViewCell.swift */; };
 		177806F4259CA63B00B766F0 /* PlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 177806F3259CA63B00B766F0 /* PlanTableViewCell.xib */; };
@@ -38,6 +41,8 @@
 		178DE834260247D1006AE7AA /* darkworld_with_shade.png in Resources */ = {isa = PBXBuildFile; fileRef = 178DE833260247D0006AE7AA /* darkworld_with_shade.png */; };
 		178DE83726027BFC006AE7AA /* plusBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 178DE83626027BFB006AE7AA /* plusBlue.png */; };
 		178DE83A26027E1D006AE7AA /* plusGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 178DE83926027E1D006AE7AA /* plusGreen.png */; };
+		17958ADB2603AA320027E88C /* moon.png in Resources */ = {isa = PBXBuildFile; fileRef = 17958ADA2603AA310027E88C /* moon.png */; };
+		17958ADE2603AB070027E88C /* sun.png in Resources */ = {isa = PBXBuildFile; fileRef = 17958ADD2603AB070027E88C /* sun.png */; };
 		17EDF7AC259AADCC0002C1D4 /* world_with_shade.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */; };
 		79DB83D7DC48CCCE7C8746F9 /* libPods-studyplanet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 462E0F493B3FE78D744C8D4C /* libPods-studyplanet.a */; };
 /* End PBXBuildFile section */
@@ -67,6 +72,9 @@
 		17205C1D259AA32E00C1B021 /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		17205C21259AA49F00C1B021 /* ModuleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleTableViewCell.swift; sourceTree = "<group>"; };
 		17205C22259AA49F00C1B021 /* ModuleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleTableViewCell.xib; sourceTree = "<group>"; };
+		17481C672603F3D60014881A /* invertmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invertmoon.png; sourceTree = "<group>"; };
+		17481C6D26041E320014881A /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
+		17481C7026041E6D0014881A /* ProgressViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCell.swift; sourceTree = "<group>"; };
 		1748E0D225FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "to-do-app-ui-design-55.jpeg"; path = "../../../design/to-do-app-ui-design-55.jpeg"; sourceTree = "<group>"; };
 		177806EC259C017800B766F0 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableViewCell.swift; sourceTree = "<group>"; };
 		177806F3259CA63B00B766F0 /* PlanTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanTableViewCell.xib; sourceTree = "<group>"; };
@@ -76,6 +84,8 @@
 		178DE833260247D0006AE7AA /* darkworld_with_shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkworld_with_shade.png; sourceTree = "<group>"; };
 		178DE83626027BFB006AE7AA /* plusBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusBlue.png; sourceTree = "<group>"; };
 		178DE83926027E1D006AE7AA /* plusGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusGreen.png; sourceTree = "<group>"; };
+		17958ADA2603AA310027E88C /* moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moon.png; sourceTree = "<group>"; };
+		17958ADD2603AB070027E88C /* sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun.png; sourceTree = "<group>"; };
 		17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_with_shade.png; sourceTree = "<group>"; };
 		35878DA75B0013EA8ED9CFE1 /* Pods-studyplanet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studyplanet.debug.xcconfig"; path = "Target Support Files/Pods-studyplanet/Pods-studyplanet.debug.xcconfig"; sourceTree = "<group>"; };
 		462E0F493B3FE78D744C8D4C /* libPods-studyplanet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-studyplanet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,7 +144,7 @@
 				17205C1D259AA32E00C1B021 /* StartupViewController.swift */,
 				17205C26259AA4AB00C1B021 /* Module Table View */,
 				177806E4259B7FDA00B766F0 /* Plan */,
-				178DE83D26029EA8006AE7AA /* Configure */,
+				17481C6B2604183F0014881A /* Progress */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -149,6 +159,8 @@
 				1712828825FD9C060050E8E0 /* addbutton.png */,
 				17205C0A259A9E4900C1B021 /* studyplanettext.png */,
 				178DE83626027BFB006AE7AA /* plusBlue.png */,
+				17958ADD2603AB070027E88C /* sun.png */,
+				17958ADA2603AA310027E88C /* moon.png */,
 				17EDF7AB259AADCC0002C1D4 /* world_with_shade.png */,
 				178DE833260247D0006AE7AA /* darkworld_with_shade.png */,
 				178DE83926027E1D006AE7AA /* plusGreen.png */,
@@ -158,6 +170,7 @@
 				17780705259CBC5A00B766F0 /* plannerplus.png */,
 				17205C19259AA28900C1B021 /* continue.png */,
 				17205C11259A9E7E00C1B021 /* setupplanner.png */,
+				17481C672603F3D60014881A /* invertmoon.png */,
 				17205C12259A9E7F00C1B021 /* Startup_Earth.png */,
 			);
 			path = Images;
@@ -182,6 +195,15 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
+		17481C6B2604183F0014881A /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				17481C6D26041E320014881A /* ProgressViewController.swift */,
+				17481C7026041E6D0014881A /* ProgressViewCell.swift */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
 		177806E4259B7FDA00B766F0 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,13 +213,6 @@
 				17205BFA259A987500C1B021 /* DateCell.swift */,
 			);
 			path = Plan;
-			sourceTree = "<group>";
-		};
-		178DE83D26029EA8006AE7AA /* Configure */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Configure;
 			sourceTree = "<group>";
 		};
 		5924EEDE48719D4661157AE4 /* Pods */ = {
@@ -275,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17958ADE2603AB070027E88C /* sun.png in Resources */,
 				178DE834260247D1006AE7AA /* darkworld_with_shade.png in Resources */,
 				17205C13259A9E7F00C1B021 /* setupplanner.png in Resources */,
 				17780703259CB62D00B766F0 /* plannerprogress.png in Resources */,
@@ -283,9 +299,11 @@
 				1712828225FD69A50050E8E0 /* inspo2.png in Resources */,
 				1719F05F259A91830067A49D /* LaunchScreen.storyboard in Resources */,
 				17205C1A259AA28900C1B021 /* continue.png in Resources */,
+				17958ADB2603AA320027E88C /* moon.png in Resources */,
 				17205C14259A9E7F00C1B021 /* Startup_Earth.png in Resources */,
 				178DE83A26027E1D006AE7AA /* plusGreen.png in Resources */,
 				17780706259CBC5A00B766F0 /* plannerplus.png in Resources */,
+				17481C682603F3D70014881A /* invertmoon.png in Resources */,
 				17205C02259A9DB700C1B021 /* appbackground.png in Resources */,
 				177806F4259CA63B00B766F0 /* PlanTableViewCell.xib in Resources */,
 				17EDF7AC259AADCC0002C1D4 /* world_with_shade.png in Resources */,
@@ -335,7 +353,9 @@
 				17205C1F259AA32E00C1B021 /* StartupViewController.swift in Sources */,
 				17205BFF259A9D4700C1B021 /* WelcomeController.swift in Sources */,
 				1719F054259A91800067A49D /* PlanViewController.swift in Sources */,
+				17481C6E26041E320014881A /* ProgressViewController.swift in Sources */,
 				17205C1E259AA32E00C1B021 /* ModuleViewController.swift in Sources */,
+				17481C7126041E6D0014881A /* ProgressViewCell.swift in Sources */,
 				17205C23259AA49F00C1B021 /* ModuleTableViewCell.swift in Sources */,
 				177806EE259C017800B766F0 /* PlanTableViewCell.swift in Sources */,
 				17205BFB259A987500C1B021 /* DateCell.swift in Sources */,
@@ -492,6 +512,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X2V4844DFU;
 				INFOPLIST_FILE = studyplanet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -512,6 +533,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X2V4844DFU;
 				INFOPLIST_FILE = studyplanet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
