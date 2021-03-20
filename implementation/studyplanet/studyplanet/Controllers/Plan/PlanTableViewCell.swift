@@ -23,7 +23,7 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var tickBtn: UIButton!
     
 
-    let currentTime = Calendar.current.component(.hour, from: Date())
+    let currentTime = 14      //Calendar.current.component(.hour, from: Date())
     var revisionSlotTime = 0
     var currentDayNum = 0
     var dayOfTheWeekString = ""
@@ -63,7 +63,7 @@ class PlanTableViewCell: UITableViewCell {
     func sessionCompleted(indexPath: IndexPath, _ sender: UIButton){
         
         if(isItOnGoing()){ //
-            let alert = UIAlertController(title: "Have you completed this task?", message: "This task is currently on going.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Have you started this task?", message: "We will note you started your session on time.", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
                 if delegate?.daySelected == "monday" {
@@ -82,6 +82,8 @@ class PlanTableViewCell: UITableViewCell {
                     delegate?.sundayCompleted[indexPath.row] = true
                 }
                 sender.isSelected.toggle()
+                tickBtn.layer.add(bounceAnimation, forKey: nil)
+                
                 backgroundCell.backgroundColor = planetGreen
                 
             }))
@@ -92,7 +94,7 @@ class PlanTableViewCell: UITableViewCell {
             delegate?.present(alert, animated: true)
             
         } else{
-            let alert = UIAlertController(title: "Have you completed this task?", message: "This task starts at " + String(revisionSlotTime) + ":00", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Have you started this task?", message: "Great! We will note you started your session earlier as this starts at " + String(revisionSlotTime) + ":00", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
                 if delegate?.daySelected == "monday" {
@@ -140,6 +142,7 @@ class PlanTableViewCell: UITableViewCell {
             tickBtn.isHidden = false
             moduleLabel.textColor = UIColor.white
             timeLabel.textColor = UIColor.white
+            
             if(isItMissed()){ // it is missed
                 backgroundCell.backgroundColor = planetRed
                 tickBtn.isHidden = true
@@ -159,9 +162,10 @@ class PlanTableViewCell: UITableViewCell {
                 moduleLabel.textColor = UIColor.white
                 timeLabel.textColor = UIColor.white
                 backgroundCell.backgroundColor = planetYellow
+                backgroundCell.setBottomBorder1()
             }
             
-            if(isItOnGoing() && !isItMissed()){
+            if(isItOnGoing() && !isItMissed()){  // if its on going make blue
                 tickBtn.isHidden = false
                 moduleLabel.textColor = UIColor.white
                 timeLabel.textColor = UIColor.white
@@ -169,7 +173,7 @@ class PlanTableViewCell: UITableViewCell {
             }
             
             // 
-            if(!isItOnGoing() && !isItUpcoming()){
+            if(!isItOnGoing() && !isItUpcoming()){ // if its not on going and not upcoming hide tick
                 tickBtn.isHidden = true
             }
             
@@ -186,7 +190,7 @@ class PlanTableViewCell: UITableViewCell {
         } else{ // not today
             moduleLabel.textColor = UIColor.white
             timeLabel.textColor = UIColor.white
-            backgroundCell.backgroundColor = UIColor.black
+            backgroundCell.backgroundColor = UIColor.darkGray
             tickBtn.isHidden = true
 
         }
@@ -224,7 +228,7 @@ class PlanTableViewCell: UITableViewCell {
     
     func isItUpcoming() -> Bool{ // is it 2 hours before a revision slot (between slots)
         if(isItToday()){
-            if(revisionSlotTime > currentTime && revisionSlotTime <= currentTime+2) {
+            if(revisionSlotTime > currentTime && revisionSlotTime <= currentTime+1) {
                 return true
             }
         }
@@ -250,6 +254,14 @@ class PlanTableViewCell: UITableViewCell {
         return false
     }
 
+    private var bounceAnimation: CAKeyframeAnimation = {
+        let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        bounceAnimation.values = [1.0, 1.4, 0.9, 1.02, 1.0]
+        bounceAnimation.duration = TimeInterval(0.3)
+        bounceAnimation.calculationMode = CAAnimationCalculationMode.cubic
+        return bounceAnimation
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         //bbackgroundCell.backgroundColor = UIColor.white.cgColor
@@ -294,3 +306,14 @@ extension String {
         return attributeString
     }
 }
+
+extension UIView {
+  func setBottomBorder1() {
+    self.layer.masksToBounds = false
+    self.layer.shadowColor = UIColor.lightGray.cgColor
+    self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+    self.layer.shadowOpacity = 1.0
+    self.layer.shadowRadius = 0.0
+  }
+}
+

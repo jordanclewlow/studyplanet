@@ -11,7 +11,6 @@ import UIKit
 class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     
-    @IBOutlet weak var mondayBtnOutlet: UIButton!
     @IBOutlet weak var moduleMessageLabel: UILabel!
     
     var modules = [String]()
@@ -22,6 +21,16 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var interval : Int!
     var startingTime = 10
 
+    @IBOutlet weak var mondayBtnOutlet: UIButton!
+    @IBOutlet weak var tuesdayBtnOutlet: UIButton!
+    @IBOutlet weak var wednesdayBtnOutlet: UIButton!
+    @IBOutlet weak var thursdayBtnOutlet: UIButton!
+    @IBOutlet weak var fridayBtnOutlet: UIButton!
+    
+    @IBOutlet weak var saturdayBtnOutlet: UIButton!
+    
+    @IBOutlet weak var sundayBtnOutlet: UIButton!
+    
     
     @IBOutlet weak var moduleTitleLabel: UILabel!
     
@@ -84,26 +93,37 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         interval = Int(sender.value) // change study hours to slider value
     }
     
+    func makeIntoCircle(button: UIButton) {
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = button.frame.width / 2
+        button.clipsToBounds = true
+    }
+    
     @IBAction func mondayButton(_ sender: UIButton) {
-        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+         
 
         let button = sender
         if button.isSelected {
                 // set deselected
             button.isSelected = false
+            button.backgroundColor = UIColor.clear
+            
             let mondayPos = selectedDays.firstIndex(of: "monday")
             selectedDays.remove(at: mondayPos!)
             
         } else {
             // set selected
+            button.backgroundColor = UIColor.lightGray
 
             button.isSelected = true
             selectedDays.append("monday")
+            button.backgroundColor = UIColor.lightGray
+
         }
     }
     
     @IBAction func tuesdayButton(_ sender: UIButton) {
-        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+         
 
         let button = sender
         if button.isSelected {
@@ -111,14 +131,17 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             button.isSelected = false
             let tuesdayPos = selectedDays.firstIndex(of: "tuesday")
             selectedDays.remove(at: tuesdayPos!)
+            button.backgroundColor = UIColor.clear
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("tuesday")
+            button.backgroundColor = UIColor.lightGray
+
         }
     }
     @IBAction func wednesdayButton(_ sender: UIButton) {
-        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+         
 
         let button = sender
         if button.isSelected {
@@ -126,15 +149,19 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             button.isSelected = false
             let wednesdayPos = selectedDays.firstIndex(of: "wednesday")
             selectedDays.remove(at: wednesdayPos!)
+            button.backgroundColor = UIColor.clear
+
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("wednesday")
+            button.backgroundColor = UIColor.lightGray
+
         }
     }
     
     @IBAction func thursdayButton(_ sender: UIButton) {
-        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+         
 
         let button = sender
         if button.isSelected {
@@ -142,15 +169,19 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             button.isSelected = false
             let thursdayPos = selectedDays.firstIndex(of: "thursday")
             selectedDays.remove(at: thursdayPos!)
+            button.backgroundColor = UIColor.clear
+
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("thursday")
+            button.backgroundColor = UIColor.lightGray
+
         }
     }
     
     @IBAction func fridayButton(_ sender: UIButton) {
-        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+         
 
         let button = sender
         if button.isSelected {
@@ -158,31 +189,40 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             button.isSelected = false
             let fridayPos = selectedDays.firstIndex(of: "friday")
             selectedDays.remove(at: fridayPos!)
+            button.backgroundColor = UIColor.clear
+
+
+            
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("friday")
+            button.backgroundColor = UIColor.lightGray
+
         }
     }
     
     @IBAction func saturdayButton(_ sender: UIButton) {
-        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
-
+         
         let button = sender
         if button.isSelected {
                 // set deselected
             button.isSelected = false
             let saturdayPos = selectedDays.firstIndex(of: "saturday")
             selectedDays.remove(at: saturdayPos!)
+            button.backgroundColor = UIColor.clear
+
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("saturday")
+            button.backgroundColor = UIColor.lightGray
+
         }
     }
     
     @IBAction func sundayButton(_ sender: UIButton) {
-        sender.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+         
 
         let button = sender
         if button.isSelected {
@@ -190,10 +230,14 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             button.isSelected = false
             let sundayPos = selectedDays.firstIndex(of: "sunday")
             selectedDays.remove(at: sundayPos!)
+            button.backgroundColor = UIColor.clear
+
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("sunday")
+            button.backgroundColor = UIColor.lightGray
+
         }
     }
     
@@ -244,8 +288,35 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         moduleTable.delegate = self
         moduleTable.dataSource = self
         
+        makeIntoCircle(button: mondayBtnOutlet)
+        mondayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        mondayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
         
-       
+        makeIntoCircle(button: tuesdayBtnOutlet)
+        tuesdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        tuesdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        
+        makeIntoCircle(button: wednesdayBtnOutlet)
+        wednesdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        wednesdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        
+        makeIntoCircle(button: thursdayBtnOutlet)
+        thursdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        thursdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        
+        makeIntoCircle(button: fridayBtnOutlet)
+        mondayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        mondayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        
+        makeIntoCircle(button: saturdayBtnOutlet)
+        saturdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        saturdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        
+        makeIntoCircle(button: sundayBtnOutlet)
+        sundayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        sundayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        
+
         
         // Do any additional setup after loading the view.*/
     }

@@ -7,6 +7,8 @@ import JTAppleCalendar
 class PlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // instantiate outlets
     @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var heresYourLabel: UILabel!
     @IBOutlet weak var calendarBox: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var planTable: UITableView!
@@ -27,11 +29,11 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var daysDict = [String : [Int:String]] () // [days : [time:modules]]
     var months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-    
+    var dayOfTheWeekString = ""
     var daySelected = ""
     var selectedDayNumber = 0 // aka 14    (14th march)
     
-    var dayRow = 0
+    var dayColumn = 0
     var currentMonth = ""
     
     let hour = Calendar.current.component(.hour, from: Date())
@@ -109,7 +111,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
-        let dayOfTheWeekString = dateFormatter.string(from: date)
+        dayOfTheWeekString = dateFormatter.string(from: date)
         
         // find month for label
         dateFormatter.dateFormat = "LLLL"
@@ -121,6 +123,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
            self.calendarView.selectDates([date])
         }
         
+        daySelected = dayOfTheWeekString
+
         // refresh the planner
         tableView.reloadData()
     }
@@ -132,6 +136,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         return val / 100.0
     }
     
+
     // generate the days / sessions
     public func generateTimeTable(weeklyAllocatedHours: Dictionary<String,Double>) {
         let weeklyAllocated = weeklyAllocatedHours // how many hours allocated to each module
@@ -216,6 +221,26 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
             daysDict.updateValue(timesDict , forKey: day)
         }
         return
+    }
+    
+    func getDayColumn(dayString: String) -> Int {
+        let day = dayString.lowercased()
+        if (day == "monday") {
+            return 0
+        } else if(day == "tuesday") {
+            return 1
+        } else if(day == "wednesday") {
+            return 2
+        }else if(day == "thursday") {
+            return 3
+        }else if(day == "friday") {
+            return 4
+        }else if(day == "saturday") {
+            return 5
+        }else if(day == "sunday") {
+            return 6
+        }
+        return 0
     }
     
     // Calculate how many hours of revision
@@ -376,7 +401,15 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     } */
     
+    
 
+    private var bounceAnimation: CAKeyframeAnimation = {
+        let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        bounceAnimation.values = [1.0, 1.4, 0.9, 1.02, 1.0]
+        bounceAnimation.duration = TimeInterval(0.15)
+        bounceAnimation.calculationMode = CAAnimationCalculationMode.cubic
+        return bounceAnimation
+    }()
     
 
 }
@@ -403,43 +436,22 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     
     func configureCell(view: JTAppleCell?, cellState: CellState) {
         guard let cell = view as? DateCell  else { return }
-        cell.dateLabel.text = cellState.text
+        cell.dateLabel.textColor = UIColor.white
         handleCellSelected(cell: cell, cellState: cellState)
-        
-
-    }
-        
-    func handleCellTextColor(cell: DateCell, cellState: CellState) {
-        cell.dateLabel.isHidden = false
-
-       if cellState.dateBelongsTo == .thisMonth {
-          cell.dateLabel.textColor = UIColor.black
-       } else {
-          cell.dateLabel.textColor = UIColor.black
-       }
-        
-        
     }
     
     // if day selected show plan for that day
     func handleCellSelected(cell: DateCell, cellState: CellState) {
-        cell.dateLabel.isHidden = false
-        if cellState.isSelected {
-            
-            // make a circle
-            //cell.selectedView.layer.borderWidth = 1
-            cell.selectedView.layer.masksToBounds = true
-            cell.selectedView.layer.cornerRadius = cell.selectedView.frame.width / 2
-            cell.selectedView.clipsToBounds = true
-            cell.dateLabel.textColor = UIColor.white
+        cell.dateLabel.textColor = UIColor.red
+        heresYourLabel.isHidden = false
+        monthLabel.isHidden = false
+       if cellState.isSelected {
             cell.selectedView.isHidden = false
             selectedDayNumber = Int(cellState.text)!
-            
-            // animate enlarge
-            UIView.animate(withDuration: 0.15) {
-                cell.selectedView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-            }
-            
+            cell.selectedView.layer.cornerRadius = cell.selectedView.frame.width / 2
+
+            cell.selectedView.layer.add(bounceAnimation, forKey: nil)
+        
             // change selected day
             if cellState.column() == 0{
                 daySelected = "monday"
@@ -464,7 +476,7 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
             let yearString = dateFormatter.string(from: date)
             
             monthLabel.text = cellState.text + " " + currentMonth + " " + yearString
-            tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .bottom)
+            tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .right)
 
         } else {
             cell.dateLabel.textColor = UIColor.black
@@ -476,6 +488,7 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     // configure cell
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configureCell(view: cell, cellState: cellState)
+        
     }
 
     // configure cell
@@ -491,6 +504,13 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
         // show date
         myCustomCell.dateLabel.text = cellState.text
         
+        // make a circle
+        myCustomCell.dateLabel.textColor = UIColor.black
+        myCustomCell.selectedView.layer.masksToBounds = true
+        myCustomCell.selectedView.layer.cornerRadius = myCustomCell.selectedView.frame.width / 2
+        myCustomCell.selectedView.clipsToBounds = true
+        myCustomCell.selectedView.isHidden = true
+
         return myCustomCell
     }
     

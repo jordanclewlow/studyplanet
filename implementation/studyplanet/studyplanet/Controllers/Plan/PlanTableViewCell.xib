@@ -21,18 +21,21 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X1h-s5-JnG">
                         <rect key="frame" x="0.0" y="8" width="404" height="43"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="KXo-Bf-p0I">
-                                <rect key="frame" x="20" y="14" width="155" height="15"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="LnI-Aa-prg">
+                                <rect key="frame" x="15" y="11" width="136" height="21"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79p-VX-kSa">
-                                        <rect key="frame" x="0.0" y="0.0" width="26" height="15"/>
-                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="12"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="22" height="21"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="modulename" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOq-lq-iER">
-                                        <rect key="frame" x="51" y="0.0" width="104" height="15"/>
-                                        <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="15"/>
+                                        <rect key="frame" x="52" y="0.0" width="84" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="jDl-of-Pt8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -42,8 +45,8 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0056950557310000002" green="0.013996372599999999" blue="0.020592013249999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="KXo-Bf-p0I" firstAttribute="centerY" secondItem="X1h-s5-JnG" secondAttribute="centerY" id="Bvd-M3-xRv"/>
-                            <constraint firstItem="KXo-Bf-p0I" firstAttribute="leading" secondItem="X1h-s5-JnG" secondAttribute="leading" constant="20" id="n3W-S7-u5J"/>
+                            <constraint firstItem="LnI-Aa-prg" firstAttribute="centerY" secondItem="X1h-s5-JnG" secondAttribute="centerY" id="2Vf-Dm-QSr"/>
+                            <constraint firstItem="LnI-Aa-prg" firstAttribute="leading" secondItem="X1h-s5-JnG" secondAttribute="leading" constant="15" id="Ae3-YG-orV"/>
                             <constraint firstAttribute="height" constant="43" id="nH9-7a-T8R"/>
                         </constraints>
                     </view>
