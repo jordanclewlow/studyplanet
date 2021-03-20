@@ -23,7 +23,7 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var tickBtn: UIButton!
     
 
-    let currentTime = 14      //Calendar.current.component(.hour, from: Date())
+    let currentTime = 14//Calendar.current.component(.hour, from: Date())
     var revisionSlotTime = 0
     var currentDayNum = 0
     var dayOfTheWeekString = ""
@@ -38,14 +38,19 @@ class PlanTableViewCell: UITableViewCell {
     
     @IBOutlet weak var backgroundCell: UIView!
     
-    @IBAction func planDoneBtn(_ sender: UIButton) {
-    }
+    
+    
+    var stars : Int!
     
     var completed = false
     let deselectImage = UIImage(named: "checkmark.circle")
     let selectImage = UIImage(named: "checkmark.circle.fill")
+    
+    
+    
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var moduleLabel: UILabel!
+    
     
     @IBAction func clickedBtn(_ sender: UIButton) {
         print(dayOfTheWeekString)
@@ -57,6 +62,11 @@ class PlanTableViewCell: UITableViewCell {
     
     func changeToGreen(){
         backgroundCell.backgroundColor = planetGreen
+    }
+    
+    func giveStars(amount: Int) {
+        delegate?.stars += amount
+        stars = delegate?.stars
     }
     
     // when you tick off a session
@@ -85,7 +95,8 @@ class PlanTableViewCell: UITableViewCell {
                 tickBtn.layer.add(bounceAnimation, forKey: nil)
                 
                 backgroundCell.backgroundColor = planetGreen
-                
+                giveStars(amount: 250)
+                                
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { [self] action in
                 completed = false
@@ -113,7 +124,7 @@ class PlanTableViewCell: UITableViewCell {
                     delegate?.sundayCompleted[indexPath.row] = true
                 }
                 sender.isSelected.toggle()
-                backgroundCell.backgroundColor = planetGreen
+                giveStars(amount: 150)
                 
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { [self] action in

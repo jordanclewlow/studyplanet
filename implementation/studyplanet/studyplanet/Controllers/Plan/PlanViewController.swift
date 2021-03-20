@@ -5,7 +5,9 @@ import JTAppleCalendar
 
 
 class PlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     // instantiate outlets
+
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var heresYourLabel: UILabel!
@@ -36,7 +38,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     var dayColumn = 0
     var currentMonth = ""
     
-    let hour = Calendar.current.component(.hour, from: Date())
+    //let hour = 10 //Calendar.current.component(.hour, from: Date())
         // array of session for each day
     var monday = [String]()
     var tuesday = [String]()
@@ -56,6 +58,15 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     var sundayCompleted = [Bool]()
     
    
+    
+    
+    
+    @IBOutlet weak var starsLabel: UILabel!
+    //progress
+    var stars = 0
+    var level = 1
+    var levels = [0,100,250,375,500,700,1000,1300,1700,2200,3800,4700,5700]
+
     
     // add  button
     @IBAction func addBtn(_ sender: UIButton) {
@@ -127,8 +138,30 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         // refresh the planner
         tableView.reloadData()
+        
+        
+        
+        
+        // timer
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in self.countFired += 1
+            
+            DispatchQueue.main.async { [self] in
+                self.starsLabel.text = String(self.stars)//keep updating label
+                                if (self.stars != 0){ // if stars isnt 0
+                    for lvl in self.levels {  // for each level
+                        if (stars < lvl) { // where stars needed is higher than stars
+                            level = levels.firstIndex(of: lvl)!
+                            break
+                        }
+                    }
+                    print(level)
+                }
+                
+            }
+            
+        }
     }
-
+    var countFired = 0
     
     // Calculate percentage based on given values
     public func calculatePercentage(value:Double,percentageVal:Double)->Double{

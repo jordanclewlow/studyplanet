@@ -33,6 +33,7 @@
 		17481C6E26041E320014881A /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17481C6D26041E320014881A /* ProgressViewController.swift */; };
 		17481C7126041E6D0014881A /* ProgressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17481C7026041E6D0014881A /* ProgressViewCell.swift */; };
 		1748E0D325FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1748E0D225FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg */; };
+		175FF7472606A0590065E92E /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175FF7462606A0590065E92E /* ProgressBar.swift */; };
 		176C41582605059900C2CFF5 /* gameplaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 176C41572605059800C2CFF5 /* gameplaceholder.png */; };
 		176C415B26050A6A00C2CFF5 /* AnimatedTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C415A26050A6A00C2CFF5 /* AnimatedTabBarController.swift */; };
 		176C415E260512B000C2CFF5 /* tabSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = 176C415D260512AF00C2CFF5 /* tabSelect.png */; };
@@ -81,6 +82,7 @@
 		17481C6D26041E320014881A /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
 		17481C7026041E6D0014881A /* ProgressViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCell.swift; sourceTree = "<group>"; };
 		1748E0D225FD66EA003A0E2C /* to-do-app-ui-design-55.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "to-do-app-ui-design-55.jpeg"; path = "../../../design/to-do-app-ui-design-55.jpeg"; sourceTree = "<group>"; };
+		175FF7462606A0590065E92E /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		176C41572605059800C2CFF5 /* gameplaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameplaceholder.png; sourceTree = "<group>"; };
 		176C415A26050A6A00C2CFF5 /* AnimatedTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedTabBarController.swift; sourceTree = "<group>"; };
 		176C415D260512AF00C2CFF5 /* tabSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabSelect.png; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				17481C6D26041E320014881A /* ProgressViewController.swift */,
+				175FF7462606A0590065E92E /* ProgressBar.swift */,
 				17481C7026041E6D0014881A /* ProgressViewCell.swift */,
 			);
 			path = Progress;
@@ -375,6 +378,7 @@
 				17481C6E26041E320014881A /* ProgressViewController.swift in Sources */,
 				17205C1E259AA32E00C1B021 /* ModuleViewController.swift in Sources */,
 				17481C7126041E6D0014881A /* ProgressViewCell.swift in Sources */,
+				175FF7472606A0590065E92E /* ProgressBar.swift in Sources */,
 				17205C23259AA49F00C1B021 /* ModuleTableViewCell.swift in Sources */,
 				177806EE259C017800B766F0 /* PlanTableViewCell.swift in Sources */,
 				17205BFB259A987500C1B021 /* DateCell.swift in Sources */,
