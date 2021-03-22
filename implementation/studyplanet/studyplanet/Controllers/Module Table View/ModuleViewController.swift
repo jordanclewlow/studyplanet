@@ -9,122 +9,118 @@ import UIKit
 
 
 class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-        
-    
-    @IBOutlet weak var moduleMessageLabel: UILabel!
-    
-    var modules = [String]()
-    var modulesDict = [String : Int]()                          //modules:confidence
-    var confidences = [String]()
-    var selectedDays = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
-    var dailyStudyHours = 2 // default
-    var interval : Int!
-    var startingTime = 10
+    // data persistence
+    let defaults = UserDefaults.standard
 
+    // initialise variables
+    var modules = [String]() // users modules
+    var dailyStudyHours : Int! // default daily hours for study
+    var modulesDict = [String : Int]() //modules:confidence
+    var selectedDays = [String]()
+    var interval = 2
+    var startingTime = 10
+    
     @IBOutlet weak var mondayBtnOutlet: UIButton!
     @IBOutlet weak var tuesdayBtnOutlet: UIButton!
     @IBOutlet weak var wednesdayBtnOutlet: UIButton!
     @IBOutlet weak var thursdayBtnOutlet: UIButton!
     @IBOutlet weak var fridayBtnOutlet: UIButton!
-    
     @IBOutlet weak var saturdayBtnOutlet: UIButton!
-    
     @IBOutlet weak var sundayBtnOutlet: UIButton!
-    
-    
     @IBOutlet weak var moduleTitleLabel: UILabel!
-    
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func addButton(_ sender: UIButton) {
-        
+    @IBOutlet weak var segmentedControlOutlet: UISegmentedControl!
+    @IBOutlet weak var moduleMessageLabel: UILabel!
+    @IBOutlet var moduleTable: UITableView!
 
-        let alert = UIAlertController(title: "add module", message:nil, preferredStyle: .alert)
-        alert.addTextField {(moduleTF) in
-            moduleTF.placeholder = "COMP101"
+    
+    //  *********************   button  and  actions  *********************
+    @IBAction func applyBtn(_ sender: UIButton) {
+        // se
+        let barViewController = self.tabBarController?.viewControllers
+        let svc = barViewController![1] as! PlanViewController  // planner
+        
+        // store values
+        defaults.setValue(dailyStudyHours, forKey: "dailyStudyHours")
+        defaults.setValue(modulesDict, forKey: "modulesDict")
+        defaults.setValue(modules, forKey: "modules")
+        defaults.setValue(selectedDays, forKey: "selectedDays")
+        
+        // change values on the other view controller
+        svc.dailyStudyHours = dailyStudyHours
+        svc.modulesDict = modulesDict
+        svc.modules = modules
+        svc.selectedDays = selectedDays
+        
+        // reset all algorithm values
+        svc.monday = []
+        svc.mondayCompleted = []
+        svc.tuesday = []
+        svc.tuesdayCompleted = []
+        svc.wednesday = []
+        svc.wednesdayCompleted = []
+        svc.thursday = []
+        svc.thursdayCompleted = []
+        svc.friday = []
+        svc.fridayCompleted = []
+        svc.saturday = []
+        svc.saturdayCompleted = []
+        svc.sunday = []
+        svc.sundayCompleted = []
+        
+        // error message if something not chosen
+        if(modules.count == 0 || selectedDays == [] || dailyStudyHours == nil){
+            let alert = UIAlertController(title: "Please fill out all criteria", message:nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .default) { (_) in }
+            alert.addAction(action)
+            present(alert, animated:true)
+            
+        } else{
+            let modulesWithHoursDict = svc.calculateHoursPerModule()
+            svc.generateTimeTable(weeklyAllocatedHours: modulesWithHoursDict)
+            svc.tableView.reloadData()
         }
+    }
+    
+    
+    //change daily hours to segmentIndex
+    @IBAction func dailyHoursSegmentedControl(_ sender: UISegmentedControl) {
+        dailyStudyHours = sender.selectedSegmentIndex+1
+    }
+    
+    
+    // add module buton
+    @IBAction func addButton(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Add subject", message:nil, preferredStyle: .alert)
+        alert.addTextField {(moduleTF) in moduleTF.placeholder = "English"}
         
         let action = UIAlertAction(title: "add", style: .default) { (_) in
             guard let module = alert.textFields?.first?.text else {return}
-            self.add(module)
-        }
+            self.add(module) }
+        
         alert.addAction(action)
         present(alert, animated:true)
     }
     
-    func add(_ module: String) {
-        let index = 0
-        modules.insert(module, at: index)
-        modulesDict.updateValue(50, forKey: module)
-        let indexPath = IndexPath(row: index, section: 0)
-        tableView.insertRows(at: [indexPath], with: .top)
-    }
-    
-    func changeConfidence(module: String, confidence: Int){
-        modulesDict.updateValue(confidence, forKey: module)
-    }
-    
-    
-    @IBAction func toPlanBtn(_ sender: UIButton) {
-        if(modules.count != 0){
-            performSegue(withIdentifier: "plannerSegue", sender: nil )
-        }
-    }
-    func findAmountOfSessions() -> Int{
-        var answer = startingTime
-        for _ in 1...dailyStudyHours {
-            answer += interval
-            if (answer >= 24){
-                answer = answer - interval
-                break
-            }
-        }
-        return answer
-    }
-    @IBOutlet weak var dailyTotalSlider: UISlider!
-
-
-    // reference actions
-    @IBAction func dailyTotalSliderChanged(_ sender: UISlider) {
-        dailyStudyHours = Int(sender.value) // change study hours to slider value
-    }
-    
-    @IBAction func intervalSliderChanged(_ sender: UISlider) {
-        interval = Int(sender.value) // change study hours to slider value
-    }
-    
-    func makeIntoCircle(button: UIButton) {
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = button.frame.width / 2
-        button.clipsToBounds = true
-    }
-    
+    // buttons for selecting days
     @IBAction func mondayButton(_ sender: UIButton) {
-         
-
         let button = sender
         if button.isSelected {
-                // set deselected
+           // set deselected
             button.isSelected = false
             button.backgroundColor = UIColor.clear
-            
             let mondayPos = selectedDays.firstIndex(of: "monday")
             selectedDays.remove(at: mondayPos!)
-            
         } else {
             // set selected
             button.backgroundColor = UIColor.lightGray
-
             button.isSelected = true
             selectedDays.append("monday")
             button.backgroundColor = UIColor.lightGray
-
         }
     }
     
     @IBAction func tuesdayButton(_ sender: UIButton) {
-         
-
         let button = sender
         if button.isSelected {
                 // set deselected
@@ -137,12 +133,9 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             button.isSelected = true
             selectedDays.append("tuesday")
             button.backgroundColor = UIColor.lightGray
-
         }
     }
     @IBAction func wednesdayButton(_ sender: UIButton) {
-         
-
         let button = sender
         if button.isSelected {
                 // set deselected
@@ -150,19 +143,15 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let wednesdayPos = selectedDays.firstIndex(of: "wednesday")
             selectedDays.remove(at: wednesdayPos!)
             button.backgroundColor = UIColor.clear
-
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("wednesday")
             button.backgroundColor = UIColor.lightGray
-
         }
     }
     
     @IBAction func thursdayButton(_ sender: UIButton) {
-         
-
         let button = sender
         if button.isSelected {
                 // set deselected
@@ -170,19 +159,15 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let thursdayPos = selectedDays.firstIndex(of: "thursday")
             selectedDays.remove(at: thursdayPos!)
             button.backgroundColor = UIColor.clear
-
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("thursday")
             button.backgroundColor = UIColor.lightGray
-
         }
     }
     
     @IBAction func fridayButton(_ sender: UIButton) {
-         
-
         let button = sender
         if button.isSelected {
                 // set deselected
@@ -190,20 +175,15 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let fridayPos = selectedDays.firstIndex(of: "friday")
             selectedDays.remove(at: fridayPos!)
             button.backgroundColor = UIColor.clear
-
-
-            
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("friday")
             button.backgroundColor = UIColor.lightGray
-
         }
     }
     
     @IBAction func saturdayButton(_ sender: UIButton) {
-         
         let button = sender
         if button.isSelected {
                 // set deselected
@@ -211,19 +191,15 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let saturdayPos = selectedDays.firstIndex(of: "saturday")
             selectedDays.remove(at: saturdayPos!)
             button.backgroundColor = UIColor.clear
-
         } else {
             // set selected
             button.isSelected = true
             selectedDays.append("saturday")
             button.backgroundColor = UIColor.lightGray
-
         }
     }
     
     @IBAction func sundayButton(_ sender: UIButton) {
-         
-
         let button = sender
         if button.isSelected {
                 // set deselected
@@ -231,7 +207,6 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let sundayPos = selectedDays.firstIndex(of: "sunday")
             selectedDays.remove(at: sundayPos!)
             button.backgroundColor = UIColor.clear
-
         } else {
             // set selected
             button.isSelected = true
@@ -245,17 +220,47 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     
+    
+    
+    
+    //  *********************       functions        *********************
+
+    // add the module
+    func add(_ module: String) {
+        let index = 0
+        modules.insert(module, at: index)
+        modulesDict.updateValue(50, forKey: module)
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.insertRows(at: [indexPath], with: .top)
+    }
+    
+    // change  confidence
+    func changeConfidence(module: String, confidence: Int){
+        modulesDict.updateValue(confidence, forKey: module)
+    }
+    
+    // give buttons circle backgroounds
+    func makeIntoCircle(button: UIButton) {
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = button.frame.width / 2
+        button.clipsToBounds = true
+    }
+    
+
+    
+    
+    
+    //  *********************       modules table        *********************
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modules.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("in module tableview")
        let module = modules[indexPath.row]
        let customCell = tableView.dequeueReusableCell(withIdentifier: ModuleTableViewCell.identifier, for: indexPath) as! ModuleTableViewCell
-        customCell.configure(with: module)
-        
         customCell.delegate = self
+        customCell.configure(with: module)
         return customCell
     }
     
@@ -266,7 +271,6 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 
-    @IBOutlet var moduleTable: UITableView!
     
     
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -288,35 +292,79 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         moduleTable.delegate = self
         moduleTable.dataSource = self
         
+        
+        // set up UI
         makeIntoCircle(button: mondayBtnOutlet)
         mondayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         mondayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
-        
+        mondayBtnOutlet.backgroundColor = UIColor.clear
+
         makeIntoCircle(button: tuesdayBtnOutlet)
         tuesdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         tuesdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        tuesdayBtnOutlet.backgroundColor = UIColor.clear
         
         makeIntoCircle(button: wednesdayBtnOutlet)
         wednesdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         wednesdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        wednesdayBtnOutlet.backgroundColor = UIColor.clear
         
         makeIntoCircle(button: thursdayBtnOutlet)
         thursdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         thursdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        thursdayBtnOutlet.backgroundColor = UIColor.clear
         
         makeIntoCircle(button: fridayBtnOutlet)
-        mondayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
-        mondayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        fridayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+        fridayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        fridayBtnOutlet.backgroundColor = UIColor.clear
         
         makeIntoCircle(button: saturdayBtnOutlet)
         saturdayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         saturdayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        saturdayBtnOutlet.backgroundColor = UIColor.clear
         
         makeIntoCircle(button: sundayBtnOutlet)
         sundayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         sundayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
+        sundayBtnOutlet .backgroundColor = UIColor.clear
+      
         
-
+        // retrieve values from user defaults
+        dailyStudyHours = defaults.integer(forKey: "dailyStudyHours") as? Int ?? Int()
+        segmentedControlOutlet.selectedSegmentIndex = dailyStudyHours-1
+        modules = defaults.array(forKey:"modules") as? [String] ?? [String]()
+        modulesDict = defaults.dictionary(forKey: "modulesDict") as? [String:Int] ?? [String:Int]()
+        selectedDays = defaults.array(forKey: "selectedDays") as? [String] ?? [String]()
+        
+        // set up selected day buttons
+        for day in selectedDays{
+            if(day == "monday"){
+                mondayBtnOutlet.isSelected=true
+                mondayBtnOutlet.backgroundColor = UIColor.lightGray
+            } else if(day == "tuesday"){
+                tuesdayBtnOutlet.isSelected=true
+                tuesdayBtnOutlet.backgroundColor = UIColor.lightGray
+            } else if(day == "wednesday"){
+                wednesdayBtnOutlet.isSelected=true
+                wednesdayBtnOutlet.backgroundColor = UIColor.lightGray
+            } else if(day == "thursday"){
+                thursdayBtnOutlet.isSelected=true
+                thursdayBtnOutlet.backgroundColor = UIColor.lightGray
+            } else if(day == "friday"){
+                fridayBtnOutlet.isSelected=true
+                fridayBtnOutlet.backgroundColor = UIColor.lightGray
+            } else if(day == "saturday"){
+                saturdayBtnOutlet.isSelected=true
+                saturdayBtnOutlet.backgroundColor = UIColor.lightGray
+            } else if(day == "sunday"){
+                sundayBtnOutlet.isSelected=true
+                sundayBtnOutlet.backgroundColor = UIColor.lightGray
+            }
+            
+            // reload module table
+            tableView.reloadData()
+        }
         
         // Do any additional setup after loading the view.*/
     }

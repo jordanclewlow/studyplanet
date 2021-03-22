@@ -9,20 +9,13 @@ import UIKit
 
 class ProgressBar: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-    
+    // change values from storyboard
     @IBInspectable public var backgroundCircleColour: UIColor = UIColor.clear
     @IBInspectable public var startGradientColour: UIColor = UIColor.red
     @IBInspectable public var endGradientColour: UIColor = UIColor.orange
     @IBInspectable public var textColour: UIColor = UIColor.white
 
-
+    // declare shape properties
     private var backgroundLayer: CAShapeLayer!
     private var foregroundLayer: CAShapeLayer!
     private var textLayer: CATextLayer!
@@ -33,9 +26,10 @@ class ProgressBar: UIView {
             didProgressUpdated()
         }
     }
+    
+    // draw the shape
     override func draw(_ rect: CGRect){
         // draw circle
-       
         guard layer.sublayers == nil else {
             return
         }
@@ -57,8 +51,7 @@ class ProgressBar: UIView {
         gradientLayer.frame = rect
         gradientLayer.mask = foregroundLayer
             
-        
-                                
+        // text inside circle
         textLayer = createTextLayer(rect: rect, textColor: textColour.cgColor)
 
         layer.addSublayer(backgroundLayer)
@@ -67,25 +60,18 @@ class ProgressBar: UIView {
     }
     
     private func createCircularLayer(rect: CGRect, strokeColor:CGColor, fillColor: CGColor, lineWidth:CGFloat) -> CAShapeLayer{
-        // draw circle
-       
         let width = rect.width
         let height = rect.height
-        
-        
+    
         let center = CGPoint(x: width/2, y: height/2)
         let radius = (min(width, height) - lineWidth)/2
-        
         
         let startAngle = -CGFloat.pi/2
         let endAngle = startAngle + 2*CGFloat.pi
         let circularPath = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         
-        
         let shapeLayer = CAShapeLayer()
-        
         shapeLayer.path = circularPath.cgPath
-        
         shapeLayer.strokeColor = strokeColor
         shapeLayer.lineWidth = lineWidth
         shapeLayer.fillColor = fillColor
@@ -94,6 +80,7 @@ class ProgressBar: UIView {
         return shapeLayer
     }
     
+    // create text inside the circle
     private func createTextLayer(rect: CGRect, textColor: CGColor) -> CATextLayer {
         let width = rect.width
         let height = rect.height
@@ -111,9 +98,11 @@ class ProgressBar: UIView {
         return layer
     }
     
+    // update the progress
     private func didProgressUpdated() {
-        textLayer?.string = "\(Int(progress*100))"
+        textLayer?.string = "\(Int(progress*100))" + "%"
         foregroundLayer?.strokeEnd = progress
     }
 
+  
 }

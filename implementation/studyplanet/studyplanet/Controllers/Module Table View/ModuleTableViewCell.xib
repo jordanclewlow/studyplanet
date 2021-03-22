@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,44 +16,81 @@
                 <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="equalCentering" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="GAY-5a-wb5">
-                        <rect key="frame" x="30" y="14.5" width="55" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="GAY-5a-wb5">
+                        <rect key="frame" x="259" y="9.5" width="125" height="25"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUZ-hz-UuD">
+                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Xqa-Ig-TMT"/>
+                                    <constraint firstAttribute="width" constant="25" id="kh3-YX-hgD"/>
+                                </constraints>
+                                <color key="tintColor" red="0.97254901959999995" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="bad" image="face.smiling" catalog="system"/>
+                                <state key="selected" image="face.smiling.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="badBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Rfj-Xc-mGJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXg-QV-Cm5">
+                                <rect key="frame" x="50" y="0.0" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="m4Y-rv-f95"/>
+                                    <constraint firstAttribute="width" constant="25" id="rbI-J8-DQL"/>
+                                </constraints>
+                                <color key="tintColor" red="0.97661978009999995" green="0.83657139540000003" blue="0.30554416779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="ok" image="face.smiling" catalog="system"/>
+                                <state key="selected" image="face.smiling.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="okBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wXL-b4-wdf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghG-bm-wiq">
+                                <rect key="frame" x="100" y="0.0" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="73Y-CI-jd9"/>
+                                    <constraint firstAttribute="height" constant="25" id="7Vv-be-JBl"/>
+                                </constraints>
+                                <color key="tintColor" red="0.08390492946" green="0.74872964620000004" blue="0.60208761690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="good" image="face.smiling" catalog="system"/>
+                                <state key="selected" image="face.smiling.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="goodBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sJe-mZ-eqv"/>
+                                </connections>
+                            </button>
+                        </subviews>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="module" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egj-Pa-n9J">
-                        <rect key="frame" x="30" y="15.5" width="47.5" height="13"/>
+                        <rect key="frame" x="0.0" y="12" width="125" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="125" id="j3g-tr-6Bv"/>
+                            <constraint firstAttribute="height" constant="20" id="th4-HS-mIg"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="13"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" id="mkx-pp-pmN">
-                        <rect key="frame" x="137" y="7" width="165" height="31"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <imageReference key="maximumValueImage" image="smiley.fill" catalog="system" symbolScale="large"/>
-                        <color key="minimumTrackTintColor" red="0.08390492946" green="0.74872964620000004" blue="0.60208761690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="maximumTrackTintColor" red="0.97254901959999995" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <action selector="moduleSliderChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="kM1-IN-nfW"/>
-                        </connections>
-                    </slider>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="Egj-Pa-n9J" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UdL-NX-hOq"/>
-                    <constraint firstItem="Egj-Pa-n9J" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="kVD-VH-R6c"/>
+                    <constraint firstAttribute="trailing" secondItem="GAY-5a-wb5" secondAttribute="trailing" id="CTB-S0-d5G"/>
+                    <constraint firstItem="Egj-Pa-n9J" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ha1-gB-Uif"/>
+                    <constraint firstItem="GAY-5a-wb5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WWl-52-vxW"/>
+                    <constraint firstItem="Egj-Pa-n9J" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bqC-rk-PIG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="badBtn" destination="dUZ-hz-UuD" id="b2c-cp-ShD"/>
+                <outlet property="goodBtn" destination="ghG-bm-wiq" id="wFw-Uk-Z5z"/>
                 <outlet property="moduleLabel" destination="Egj-Pa-n9J" id="dsD-Z3-6hY"/>
-                <outlet property="moduleSlider" destination="mkx-pp-pmN" id="eLq-bQ-Gei"/>
+                <outlet property="okBtn" destination="cXg-QV-Cm5" id="olh-Lb-vgG"/>
             </connections>
             <point key="canvasLocation" x="-2.8985507246376816" y="37.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="smiley.fill" catalog="system" width="128" height="121"/>
+        <image name="face.smiling" catalog="system" width="128" height="121"/>
+        <image name="face.smiling.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>

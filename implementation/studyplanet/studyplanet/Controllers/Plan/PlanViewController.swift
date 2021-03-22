@@ -6,41 +6,37 @@ import JTAppleCalendar
 
 class PlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // instantiate outlets
+    let defaults = UserDefaults.standard
 
+    // instantiate outlets
     @IBOutlet weak var nameLabel: UILabel!
-    
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var heresYourLabel: UILabel!
-    @IBOutlet weak var calendarBox: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var planTable: UITableView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var calendarBox: JTAppleCalendarView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
-    var planetRed = UIColor(red: 248/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
-    /* instantiate variables
-    var name : String! // users name
-    var course : String! // users course
+    @IBOutlet weak var starsLabel: UILabel!
+
+    
+    //instantiate variables
     var modules = [String]() // users modules
-    var confidences = [Int]()
-    var dailyStudyHours : Int!// default daily hours for study
-    var startingTime = 10 // default daily hours for study
+    var dailyStudyHours : Int! // default daily hours for study
     var modulesDict = [String : Int]() //modules:confidence
     var selectedDays = [String]()
-    var interval : Int!
-     */
-    
+    var startingTime = 10
+    var interval = 2
     var daysDict = [String : [Int:String]] () // [days : [time:modules]]
-    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-    var dayOfTheWeekString = ""
-    var daySelected = ""
-    var selectedDayNumber = 0 // aka 14    (14th march)
-    
-    var dayColumn = 0
-    var currentMonth = ""
-    
-    //let hour = 10 //Calendar.current.component(.hour, from: Date())
-        // array of session for each day
-    var monday = [String]()
+    var dayOfTheWeekString = "" // day today "monday"
+    var daySelected = ""        // day selected
+    var selectedDayNumber = 0   // day selected number 14    (14th march)
+    var dayColumn = 0       // column day belongs to on calendar
+    var currentMonth = ""   // current month
+
+        // array of modules on each days
+    var monday = [String]()     // aka [english, maths, spanish, english]
     var tuesday = [String]()
     var wednesday = [String]()
     var thursday = [String]()
@@ -49,7 +45,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     var sunday = [String]()
     
         // array of completed sessions
-    var mondayCompleted = [Bool]()
+    var mondayCompleted = [Bool]()     //[true, false, false, true]
     var tuesdayCompleted = [Bool]()
     var wednesdayCompleted = [Bool]()
     var thursdayCompleted = [Bool]()
@@ -57,31 +53,13 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     var saturdayCompleted = [Bool]()
     var sundayCompleted = [Bool]()
     
-   
-    
-    
-    
-    @IBOutlet weak var starsLabel: UILabel!
     //progress
     var stars = 0
     var level = 1
-    var levels = [0,100,250,375,500,700,1000,1300,1700,2200,3800,4700,5700]
+    var levels = [0,100,250,375,500,700,1000,1300,1700,2200,3800,4700,5700] //amount of stars needed for each level
+    var progress = 0.0  // percentage of closeness to next level
 
-    
-    // add  button
-    @IBAction func addBtn(_ sender: UIButton) {
-        let alert = UIAlertController(title: "add module", message:nil, preferredStyle: .alert)
-        alert.addTextField {(moduleTF) in
-            moduleTF.placeholder = "COMP101"
-        }
-        
-        let action = UIAlertAction(title: "add", style: .default) { (_) in
-            guard let module = alert.textFields?.first?.text else {return}
-            self.add(module)
-        }
-        alert.addAction(action)
-        present(alert, animated:true)
-    }
+
     
     // add into array
     func add(_ module: String) {
@@ -95,72 +73,11 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 
     
-    // ******************** DUMMY ********************
   
-    
-   var dailyStudyHours = 6 // default daily hours for study
-    var startingTime = 10 // default daily hours for study
-    var modulesDict = ["english" : 50 , "maths":50,"science":50]
-    var modules = ["english" , "maths","science"]
-   var  selectedDays = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
-    var interval = 2
     
     // formatter for dates
     let formatter = DateFormatter()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        calendarBox.setBottomBorder()
-        // planner table
-        planTable.register(PlanTableViewCell.nib(), forCellReuseIdentifier: PlanTableViewCell.identifier)
-        planTable.delegate = self
-        planTable.dataSource = self
-        
-        // generate the timetable
-        generateTimeTable(weeklyAllocatedHours: calculateHoursPerModule())
-        
-        // find day and show the plan for that day
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        dayOfTheWeekString = dateFormatter.string(from: date)
-        
-        // find month for label
-        dateFormatter.dateFormat = "LLLL"
-        currentMonth = dateFormatter.string(from: date)
-        daySelected = dayOfTheWeekString.lowercased()
-        
-        // scroll to date animation
-        calendarView.scrollToDate(date) {
-           self.calendarView.selectDates([date])
-        }
-        
-        daySelected = dayOfTheWeekString
 
-        // refresh the planner
-        tableView.reloadData()
-        
-        
-        
-        
-        // timer
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in self.countFired += 1
-            
-            DispatchQueue.main.async { [self] in
-                self.starsLabel.text = String(self.stars)//keep updating label
-                                if (self.stars != 0){ // if stars isnt 0
-                    for lvl in self.levels {  // for each level
-                        if (stars < lvl) { // where stars needed is higher than stars
-                            level = levels.firstIndex(of: lvl)!
-                            break
-                        }
-                    }
-                    print(level)
-                }
-                
-            }
-            
-        }
-    }
     var countFired = 0
     
     // Calculate percentage based on given values
@@ -173,6 +90,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     // generate the days / sessions
     public func generateTimeTable(weeklyAllocatedHours: Dictionary<String,Double>) {
         let weeklyAllocated = weeklyAllocatedHours // how many hours allocated to each module
+     
         var timesDict = [Int:String]() // the hours for each modules
         var moduleCounter = [String:Int]() // how many times the module shows
         
@@ -180,176 +98,154 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
             moduleCounter[module] = 0
         }
         
+        // empty the arrays (fixed duplication bug)
+        monday = []
+        tuesday = []
+        wednesday = []
+        thursday = []
+        friday = []
+        saturday = []
+        sunday = []
+        
+        
         var iterator = 0
         for day in selectedDays { // each day
-            var time = startingTime
+            var time = startingTime // start at the starting time
             for _ in 1...dailyStudyHours{ // for each hour
-                if (modules.count==0){
+                
+                if (modules.count==0){ // if not modules, break
                     break
                 }
+                
                 let module = modules[iterator] //  e.g english
-                timesDict.updateValue(module , forKey: time) // add module for that time
+                timesDict.updateValue(module , forKey: time) // add module to that time slot
                 moduleCounter[module]! += 1 // increase counter
-                let roundedHours = weeklyAllocated[module]!.rounded()
-                if (Double(moduleCounter[module]!)) == roundedHours { // stop module from being revised after max reached
+                
+                let roundedHours = weeklyAllocated[module]!.rounded() // round the allocated hours
+                
+                // stop module from being revised after max hours for that module is reached
+                if (Double(moduleCounter[module]!)) == roundedHours {
                     modules.remove(at: iterator )
                }
-                if (iterator == (modules.count)-1) || (modules.count == 1) || (iterator == modules.count) { // iterate through each module, if reach end, restart
+                
+                // iterate through each module, if reach end, restart
+                if (iterator == (modules.count)-1) || (modules.count == 1) || (iterator == modules.count) {
                     iterator=0
                     
                 } else {
                     iterator = iterator+1
                 }
-                time = time+interval // revise every 2 hours
+                
+                time = time+interval // next time slot is..
             }
             
-            // add revision to that day
-            let sortedKeys = Array(timesDict.values).sorted(by: <)
+            let sortedKeys = Array(timesDict.values).sorted(by: <) // time:hour from earliest to latest
+            
+        // add revision to that day
             if day == "monday" {
                 monday.append(contentsOf: sortedKeys)
+                
                 // generate sessions for that day as false
                 for _ in 1...monday.count {
                     mondayCompleted.append(false)
                 }
+                
             } else if day == "tuesday" {
                 tuesday.append(contentsOf: sortedKeys)
+                
                 // generate sessions for that day as false
                 for _ in 1...tuesday.count {
                     tuesdayCompleted.append(false)
                 }
+                
             } else if day == "wednesday" {
                 wednesday.append(contentsOf: sortedKeys)
+                
                 // generate sessions for that day as false
                 for _ in 1...wednesday.count {
                     wednesdayCompleted.append(false)
                 }
+                
             } else if day == "thursday" {
                 thursday.append(contentsOf: sortedKeys)
+                
                 // generate sessions for that day as false
                 for _ in 1...thursday.count {
                     thursdayCompleted.append(false)
                 }
+                
             } else if day == "friday" {
                 friday.append(contentsOf: sortedKeys)
+                
                 // generate sessions for that day as false
                 for _ in 1...friday.count {
                     fridayCompleted.append(false)
                 }
+                
             } else if day == "saturday" {
                 saturday.append(contentsOf: sortedKeys)
                 // generate sessions for that day as false
+                
                 for _ in 1...saturday.count {
                     saturdayCompleted.append(false)
                 }
 
             } else if day == "sunday" {
                 sunday.append(contentsOf: sortedKeys)
+                
                 // generate sessions for that day as false
                 for _ in 1...sunday.count {
                     sundayCompleted.append(false)
                 }
             }
             
-            // days
-            daysDict.updateValue(timesDict , forKey: day)
+            // TO DO: completed lessons are saved
+            defaults.setValue(mondayCompleted, forKey: "mondayCompleted")
+            defaults.setValue(tuesdayCompleted, forKey: "tuesdayCompleted")
+            defaults.setValue(wednesdayCompleted, forKey: "wednesdayCompleted")
+            defaults.setValue(thursdayCompleted, forKey: "thursdayCompleted")
+            defaults.setValue(fridayCompleted, forKey: "fridayCompleted")
+            defaults.setValue(saturdayCompleted, forKey: "saturdayCompleted")
+            defaults.setValue(sundayCompleted, forKey: "sundayCompleted")
+        
+            daysDict.updateValue(timesDict , forKey: day)    //  [ day : [time of day : module] ]
         }
         return
     }
     
-    func getDayColumn(dayString: String) -> Int {
-        let day = dayString.lowercased()
-        if (day == "monday") {
-            return 0
-        } else if(day == "tuesday") {
-            return 1
-        } else if(day == "wednesday") {
-            return 2
-        }else if(day == "thursday") {
-            return 3
-        }else if(day == "friday") {
-            return 4
-        }else if(day == "saturday") {
-            return 5
-        }else if(day == "sunday") {
-            return 6
-        }
-        return 0
-    }
-    
     // Calculate how many hours of revision
     func calculateHoursPerModule() -> Dictionary<String,Double>{
-                
-        // sort modules desc & ascconfidence
-        let modulesDescDict = modulesDict.sorted { $0.1 > $1.1 }
-        let modulesAscDict = modulesDict.sorted { $0.1 < $1.1 }
         
-        // create sorted arrays for desc and asc
-        var descValueArray = [Int]() // array of descending sorted values
-        var ascKeyArray = [String]() // array of ascending sorted keys
-        for (_, value) in modulesDescDict{
-            descValueArray.append(value)
-        }
-        for (key, _) in modulesAscDict{
-            ascKeyArray.append(key)
-        }
+        // find amount of hours max in a week
+        let totalWeeklyStudyHours = dailyStudyHours * selectedDays.count
+    
+        
+    // find percentage of each modules confidence compared to sum of confidences
 
-        // create new dictionary, swapping modules of biggest to smallest
-        let swappedModulesDict = Dictionary(uniqueKeysWithValues: zip(ascKeyArray, descValueArray))
-
-        // find minimum hours allocated to each module
-        let weeklyStudyHours = dailyStudyHours * selectedDays.count
-        _ = Double(modules.count) // atleast one hour for each module
-        
-
-        
-        
-        // find % of each modules confidence compared to sum of confidence
-        // make array of confidence percentages
+        // find sum
         var sumConfidence = 0
         for module in modules
         {
             sumConfidence = sumConfidence + modulesDict[module]!
         }
-        var percentageWeeklyHours = [Double]() // percentage of the total hours
+        
+        // instantiate the dictionary
+        var modulesWithWeeklyHours = [String:Double]() // module : how many hours in a week
+        
+        // go through each module and find how many hours per week
         for module in modules
         {
             let moduleTitle = module
-            let percentageOfConfidence = (Double(swappedModulesDict[moduleTitle]!) / Double(sumConfidence)) * 100
-            let hours = calculatePercentage(value: Double(weeklyStudyHours),percentageVal: percentageOfConfidence)
-            percentageWeeklyHours.append(hours)
+            let percentageOfConfidence = Double(modulesDict[moduleTitle]!) / Double(sumConfidence) * 100
+            let hours = calculatePercentage(value: Double(totalWeeklyStudyHours),percentageVal: percentageOfConfidence)            
+            modulesWithWeeklyHours.updateValue(hours, forKey: moduleTitle)
         }
-        // sort percentages in desc
-        percentageWeeklyHours.sort(by:>)
-        // create new dictionary, with modules and swapped values as percentages
-        let weeklyAllocatedHours = Dictionary(uniqueKeysWithValues: zip(ascKeyArray, percentageWeeklyHours))
         
-        return(weeklyAllocatedHours)
+        // modules : how many hours that modules show up in planner (week)
+        return(modulesWithWeeklyHours)
     }
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func maxRows()->Int{
-        var max = 0
-        var counter = 0
-        while max <= 24{
-            max += interval
-            counter += 1
-        }
-        return counter
-    }
-    
-    
-    
-    // ****************************** PLAN TABLE VIEW ******************************
+    // *******************     revision planner table view     *************************
     
     // how many rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -402,40 +298,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         customCell.indexPathForCell = indexPath
         return customCell
     }
-    
-    /* delete when slide
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if daySelected == "monday" {
-                monday.remove(at: indexPath.row)
-                mondayCompleted.remove(at: indexPath.row)
-            } else if daySelected == "tuesday" {
-                tuesday.remove(at: indexPath.row)
-                tuesdayCompleted.remove(at: indexPath.row)
-            } else if daySelected == "wednesday" {
-                wednesday.remove(at: indexPath.row)
-                wednesdayCompleted.remove(at: indexPath.row)
-            } else if daySelected == "thursday" {
-                thursday.remove(at: indexPath.row)
-                thursdayCompleted.remove(at: indexPath.row)
-            } else if daySelected == "friday" {
-                friday.remove(at: indexPath.row)
-                fridayCompleted.remove(at: indexPath.row)
-            } else if daySelected == "saturday" {
-                saturday.remove(at: indexPath.row)
-                saturdayCompleted.remove(at: indexPath.row)
-            } else if daySelected == "sunday" {
-                sunday.remove(at: indexPath.row)
-                sundayCompleted.remove(at: indexPath.row)
-            }
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
-    } */
-    
-    
 
+    // bounce animation
     private var bounceAnimation: CAKeyframeAnimation = {
         let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
         bounceAnimation.values = [1.0, 1.4, 0.9, 1.02, 1.0]
@@ -444,18 +308,96 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         return bounceAnimation
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // ignore constraint erros
+        defaults.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
 
+        // retrieve variables fron user defaults
+        dailyStudyHours = defaults.integer(forKey: "dailyStudyHours") as? Int ?? Int()
+        modules = defaults.array(forKey:"modules") as? [String] ?? [String]()
+        modulesDict = defaults.dictionary(forKey: "modulesDict") as? [String:Int] ?? [String:Int]()
+        selectedDays = defaults.array(forKey: "selectedDays") as? [String] ?? [String]()
+        self.stars = defaults.integer(forKey: "stars")
+
+        // set line underneath calendar
+        calendarBox.setBottomBorder()
+        
+        // set up planner  table
+        planTable.register(PlanTableViewCell.nib(), forCellReuseIdentifier: PlanTableViewCell.identifier)
+        planTable.delegate = self
+        planTable.dataSource = self
+        
+        // if there is modules, generate the planner
+        if(modules.count != 0){
+            generateTimeTable(weeklyAllocatedHours: calculateHoursPerModule())
+        }
+        
+        // find day and show the plan for that day
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        dayOfTheWeekString = dateFormatter.string(from: date)
+        
+        // find month for label
+        dateFormatter.dateFormat = "LLLL"
+        currentMonth = dateFormatter.string(from: date)
+        daySelected = dayOfTheWeekString.lowercased()
+        
+        // scroll to date animation
+        calendarView.scrollToDate(date) {
+           self.calendarView.selectDates([date])
+        }
+        
+        // select current day
+        daySelected = dayOfTheWeekString
+
+        // refresh the planner
+        tableView.reloadData()
+        
+        
+        // runs in background: retrieves stars, levels and updates progress
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in self.countFired += 1
+            
+            DispatchQueue.main.async { [self] in
+                self.stars = defaults.integer(forKey: "stars")
+                self.starsLabel.text = String(self.stars)//keep updating label
+                
+                
+                                if (self.stars != 0){ // if stars isnt 0
+                    for lvl in self.levels {  // for each level
+                        if (stars < lvl) { // where stars needed is higher than stars
+                            level = levels.firstIndex(of: lvl)!
+                            levelLabel.text = String(level)
+                            
+                            defaults.setValue(level, forKey: "level")
+                            self.starsLabel.text = String(self.stars) + "/" + String(lvl) //keep updating label
+                            self.progress = Double(stars) / Double(lvl)
+                            
+                            let barViewController = self.tabBarController?.viewControllers
+                            let svc = barViewController![2] as! ProgressViewController
+                            svc.progress = CGFloat(self.progress)
+                            
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
+// uppercase first letter of string
 extension StringProtocol {
     var firstUppercased: String { return prefix(1).uppercased() + dropFirst() }
     var firstCapitalized: String { return prefix(1).capitalized + dropFirst() }
 }
 
+// set line underneath calendar
 extension JTAppleCalendarView {
   func setBottomBorder() {
     self.layer.backgroundColor = UIColor.white.cgColor
-
     self.layer.masksToBounds = false
     self.layer.shadowColor = UIColor.lightGray.cgColor
     self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
@@ -464,7 +406,7 @@ extension JTAppleCalendarView {
   }
 }
 
-// ************************************************* CALENDAR *************************************************
+// *******************       calendar         **************************
 extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
     
     func configureCell(view: JTAppleCell?, cellState: CellState) {
@@ -502,16 +444,14 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
                 daySelected = "sunday"
             }            
             
-            
+            // show day month year
             let date = Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy"
             let yearString = dateFormatter.string(from: date)
-            
             monthLabel.text = cellState.text + " " + currentMonth + " " + yearString
             tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .right)
-
-        } else {
+        } else { // if cell isnt not selected
             cell.dateLabel.textColor = UIColor.black
             cell.selectedView.isHidden = true
         }
@@ -521,7 +461,6 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     // configure cell
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configureCell(view: cell, cellState: cellState)
-        
     }
 
     // configure cell

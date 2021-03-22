@@ -12,6 +12,8 @@ class PlanTableViewCell: UITableViewCell {
     
     var delegate: PlanViewController!
     
+    let defaults = UserDefaults.standard
+
     // my colours
     var planetBlue = UIColor(red: 101/255.0, green: 182/255.0, blue: 252/255.0, alpha: 1)
     var planetYellow = UIColor(red:248/255.0,green:212/255.0,blue:90/255.0,alpha: 1)
@@ -65,15 +67,15 @@ class PlanTableViewCell: UITableViewCell {
     }
     
     func giveStars(amount: Int) {
-        delegate?.stars += amount
-        stars = delegate?.stars
+        let stars = delegate!.stars + amount
+        defaults.setValue(stars, forKey: "stars")
     }
     
     // when you tick off a session
     func sessionCompleted(indexPath: IndexPath, _ sender: UIButton){
         
         if(isItOnGoing()){ //
-            let alert = UIAlertController(title: "Have you started this task?", message: "We will note you started your session on time.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Are you ready to start?", message: "You will earn 50 stars for starting this session on time.", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
                 if delegate?.daySelected == "monday" {
@@ -98,14 +100,14 @@ class PlanTableViewCell: UITableViewCell {
                 giveStars(amount: 250)
                                 
             }))
-            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { [self] action in
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] action in
                 completed = false
             }))
             
             delegate?.present(alert, animated: true)
             
         } else{
-            let alert = UIAlertController(title: "Have you started this task?", message: "Great! We will note you started your session earlier as this starts at " + String(revisionSlotTime) + ":00", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Are you ready to start?", message: "You will earn 150 stars for starting this session early.", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
                 if delegate?.daySelected == "monday" {
