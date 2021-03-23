@@ -53,13 +53,21 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     var saturdayCompleted = [Bool]()
     var sundayCompleted = [Bool]()
     
+    var allFalseMondayCompleted = [Bool]()     //[true, false, false, true]
+    var allFalseTuesdayCompleted = [Bool]()
+    var allFalseWednesdayCompleted = [Bool]()
+    var allFalseThursdayCompleted = [Bool]()
+    var allFalseFridayCompleted = [Bool]()
+    var allFalseSaturdayCompleted = [Bool]()
+    var allFalseSundayCompleted = [Bool]()
+    
     //progress
     var stars = 0
     var level = 1
-    var levels = [0,100,250,375,500,700,1000,1300,1700,2200,3800,4700,5700] //amount of stars needed for each level
+    var levels = [0,100,250,375,500,700,1000,1300,1700,2200,3800,4700,5700,7000,8000,9000,10000,12000,14000,160000,18000,20000,25000] //amount of stars needed for each level
     var progress = 0.0  // percentage of closeness to next level
 
-
+    
     
     // add into array
     func add(_ module: String) {
@@ -139,7 +147,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 time = time+interval // next time slot is..
             }
             
-            let sortedKeys = Array(timesDict.values).sorted(by: <) // time:hour from earliest to latest
+        let sortedKeys = Array(timesDict.values).sorted(by: <) // time:hour from earliest to latest
             
         // add revision to that day
             if day == "monday" {
@@ -149,6 +157,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for _ in 1...monday.count {
                     mondayCompleted.append(false)
                 }
+                defaults.setValue(mondayCompleted, forKey: "falseMondayCompleted")
                 
             } else if day == "tuesday" {
                 tuesday.append(contentsOf: sortedKeys)
@@ -157,6 +166,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for _ in 1...tuesday.count {
                     tuesdayCompleted.append(false)
                 }
+                defaults.setValue(tuesdayCompleted, forKey: "falseTuesdayCompleted")
+
                 
             } else if day == "wednesday" {
                 wednesday.append(contentsOf: sortedKeys)
@@ -165,6 +176,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for _ in 1...wednesday.count {
                     wednesdayCompleted.append(false)
                 }
+                defaults.setValue(wednesdayCompleted, forKey: "falseWednesdayCompleted")
+
                 
             } else if day == "thursday" {
                 thursday.append(contentsOf: sortedKeys)
@@ -173,6 +186,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for _ in 1...thursday.count {
                     thursdayCompleted.append(false)
                 }
+                defaults.setValue(thursdayCompleted, forKey: "falseThursdayCompleted")
+
                 
             } else if day == "friday" {
                 friday.append(contentsOf: sortedKeys)
@@ -181,6 +196,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for _ in 1...friday.count {
                     fridayCompleted.append(false)
                 }
+                defaults.setValue(fridayCompleted, forKey: "falseFridayCompleted")
+
                 
             } else if day == "saturday" {
                 saturday.append(contentsOf: sortedKeys)
@@ -189,7 +206,9 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for _ in 1...saturday.count {
                     saturdayCompleted.append(false)
                 }
+                defaults.setValue(saturdayCompleted, forKey: "falseSaturdayCompleted")
 
+                
             } else if day == "sunday" {
                 sunday.append(contentsOf: sortedKeys)
                 
@@ -197,21 +216,68 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for _ in 1...sunday.count {
                     sundayCompleted.append(false)
                 }
+                defaults.setValue(sundayCompleted, forKey: "falseSundayCompleted")
+
             }
             
             // TO DO: completed lessons are saved
-            defaults.setValue(mondayCompleted, forKey: "mondayCompleted")
-            defaults.setValue(tuesdayCompleted, forKey: "tuesdayCompleted")
-            defaults.setValue(wednesdayCompleted, forKey: "wednesdayCompleted")
-            defaults.setValue(thursdayCompleted, forKey: "thursdayCompleted")
-            defaults.setValue(fridayCompleted, forKey: "fridayCompleted")
-            defaults.setValue(saturdayCompleted, forKey: "saturdayCompleted")
-            defaults.setValue(sundayCompleted, forKey: "sundayCompleted")
-        
+
             daysDict.updateValue(timesDict , forKey: day)    //  [ day : [time of day : module] ]
         }
         return
     }
+    
+    
+   /* func generateFalseCompletedArr(day : String) -> Array<Bool> {
+        if day == "monday" {
+      // generate sessions for that day as false
+            for _ in 1...monday.count {
+                mondayCompleted.append(false)
+            }
+            
+        } else if day == "tuesday" {
+            
+            // generate sessions for that day as false
+            for _ in 1...tuesday.count {
+                tuesdayCompleted.append(false)
+            }
+            
+        } else if day == "wednesday" {
+            
+            // generate sessions for that day as false
+            for _ in 1...wednesday.count {
+                wednesdayCompleted.append(false)
+            }
+            
+        } else if day == "thursday" {
+            
+            // generate sessions for that day as false
+            for _ in 1...thursday.count {
+                thursdayCompleted.append(false)
+            }
+            
+        } else if day == "friday" {
+            
+            // generate sessions for that day as false
+            for _ in 1...friday.count {
+                fridayCompleted.append(false)
+            }
+            
+        } else if day == "saturday" {
+            // generate sessions for that day as false
+            
+            for _ in 1...saturday.count {
+                saturdayCompleted.append(false)
+            }
+
+        } else if day == "sunday" {
+            
+            // generate sessions for that day as false
+            for _ in 1...sunday.count {
+                return sundayCompleted.append(false)
+            }
+        }
+    }*/
     
     // Calculate how many hours of revision
     func calculateHoursPerModule() -> Dictionary<String,Double>{
@@ -329,10 +395,18 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         planTable.delegate = self
         planTable.dataSource = self
         
+        
+        
+        
+        
         // if there is modules, generate the planner
         if(modules.count != 0){
             generateTimeTable(weeklyAllocatedHours: calculateHoursPerModule())
         }
+        
+      //  print("after generate planner")
+       // print(mondayCompleted)
+
         
         // find day and show the plan for that day
         let date = Date()
@@ -353,6 +427,18 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // select current day
         daySelected = dayOfTheWeekString
 
+        mondayCompleted = defaults.array(forKey: "mondayCompleted") as? [Bool] ?? allFalseMondayCompleted
+        tuesdayCompleted = defaults.array(forKey: "tuesdayCompleted") as? [Bool] ?? allFalseTuesdayCompleted
+        wednesdayCompleted = defaults.array(forKey: "wednesdayCompleted") as? [Bool] ?? allFalseWednesdayCompleted
+        thursdayCompleted = defaults.array(forKey: "thursdayCompleted") as? [Bool] ?? allFalseThursdayCompleted
+        fridayCompleted = defaults.array(forKey: "fridayCompleted") as? [Bool] ?? allFalseFridayCompleted
+        saturdayCompleted = defaults.array(forKey: "saturdayCompleted") as? [Bool] ?? allFalseSaturdayCompleted
+        sundayCompleted = defaults.array(forKey: "sundayCompleted") as? [Bool] ?? allFalseSundayCompleted
+        
+        
+        print(" AFTER USER DEFAULTS ")
+        print(mondayCompleted)
+        
         // refresh the planner
         tableView.reloadData()
         

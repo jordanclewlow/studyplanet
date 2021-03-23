@@ -20,6 +20,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var interval = 2
     var startingTime = 10
     
+    @IBOutlet weak var applyBtnOutlet: UIButton!
     @IBOutlet weak var mondayBtnOutlet: UIButton!
     @IBOutlet weak var tuesdayBtnOutlet: UIButton!
     @IBOutlet weak var wednesdayBtnOutlet: UIButton!
@@ -78,6 +79,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else{
             let modulesWithHoursDict = svc.calculateHoursPerModule()
             svc.generateTimeTable(weeklyAllocatedHours: modulesWithHoursDict)
+            
             svc.tableView.reloadData()
         }
     }
@@ -92,7 +94,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // add module buton
     @IBAction func addButton(_ sender: UIButton) {
         let alert = UIAlertController(title: "Add subject", message:nil, preferredStyle: .alert)
-        alert.addTextField {(moduleTF) in moduleTF.placeholder = "English"}
+        alert.addTextField {(moduleTF) in moduleTF.placeholder = "Subject"}
         
         let action = UIAlertAction(title: "add", style: .default) { (_) in
             guard let module = alert.textFields?.first?.text else {return}
@@ -294,6 +296,11 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         // set up UI
+        applyBtnOutlet.layer.cornerRadius = 13
+        applyBtnOutlet.backgroundColor = UIColor.lightGray
+        applyBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.normal)
+
+        
         makeIntoCircle(button: mondayBtnOutlet)
         mondayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         mondayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)

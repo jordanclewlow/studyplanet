@@ -19,6 +19,8 @@ class ModuleTableViewCell: UITableViewCell {
     @IBOutlet weak var okBtn: UIButton!
     @IBOutlet weak var goodBtn: UIButton!
 
+    var currentConfidence : Int!
+    var defaultConfidence = 66
     
     // identifier
     static let identifier = "ModuleTableViewCell"
@@ -30,17 +32,34 @@ class ModuleTableViewCell: UITableViewCell {
     // set up the cell
     public func configure(with title:String){
         moduleLabel.text = title
-        okBtn.isSelected.toggle()
-        let initConf = 66
-        delegate?.changeConfidence(module: title, confidence: initConf)
+        let confidence = currentConfidence ?? defaultConfidence
 
+        if(confidence == 33){
+            goodBtn.isSelected = true
+            badBtn.isSelected = false
+            okBtn.isSelected = false
+        } else if(confidence == 99){
+            badBtn.isSelected = true
+            okBtn.isSelected = false
+            goodBtn.isSelected = false
+        } else { // if no value
+            okBtn.isSelected = true
+            goodBtn.isSelected = false
+            badBtn.isSelected = false
+        }
+        
+        print(confidence)
     }
 
+    
+    
     //  *********************   button  and  actions  *********************
     
     @IBAction func badBtnClicked(_ sender: UIButton) { // not confident in module
         let module = moduleLabel.text
         let difficulty = 99
+        
+        currentConfidence = difficulty
         delegate?.changeConfidence(module: module!, confidence: difficulty)
        
         badBtn.isSelected.toggle()
@@ -62,6 +81,9 @@ class ModuleTableViewCell: UITableViewCell {
     @IBAction func okBtnClicked(_ sender: UIButton) { // ok confidence in module
         let module = moduleLabel.text
         let difficulty = 66
+        
+        currentConfidence = difficulty
+
         delegate?.changeConfidence(module: module!, confidence: difficulty)
         okBtn.isSelected.toggle()
         
@@ -83,6 +105,9 @@ class ModuleTableViewCell: UITableViewCell {
     @IBAction func goodBtnClicked(_ sender: UIButton) { // confident in module
         let module = moduleLabel.text
         let difficulty = 33
+        
+        currentConfidence = difficulty
+
         delegate?.changeConfidence(module: module!, confidence: difficulty)
         goodBtn.isSelected.toggle()
         
@@ -96,13 +121,26 @@ class ModuleTableViewCell: UITableViewCell {
         }
         
         if(!goodBtn.isSelected && !okBtn.isSelected && !badBtn.isSelected){
-            goodBtn.isSelected.toggle()
+            
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        if(currentConfidence == 33){
+            goodBtn.isSelected = true
+            badBtn.isSelected = false
+            okBtn.isSelected = false
+        } else if(currentConfidence == 99){
+            badBtn.isSelected = true
+            okBtn.isSelected = false
+            goodBtn.isSelected = false
+        } else { // if no value
+            okBtn.isSelected = true
+            goodBtn.isSelected = false
+            badBtn.isSelected = false
+        }
+        
         // Initialization code
 
     }
@@ -112,5 +150,6 @@ class ModuleTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     
 }

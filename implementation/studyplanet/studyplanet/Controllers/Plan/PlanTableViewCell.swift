@@ -14,18 +14,23 @@ class PlanTableViewCell: UITableViewCell {
     
     let defaults = UserDefaults.standard
 
+    
     // my colours
     var planetBlue = UIColor(red: 101/255.0, green: 182/255.0, blue: 252/255.0, alpha: 1)
     var planetYellow = UIColor(red:248/255.0,green:212/255.0,blue:90/255.0,alpha: 1)
     var planetRed = UIColor(red: 248/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
     var planetGreen = UIColor(red: 21/255.0, green: 191/255.0, blue: 154/255.0, alpha: 1)
     
-    //@IBOutlet weak var completedBtn: UIButton!
-    
+    // outlets
     @IBOutlet weak var tickBtn: UIButton!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var moduleLabel: UILabel!
     
-
-    let currentTime = 14//Calendar.current.component(.hour, from: Date())
+    var completed : Bool!
+    var hasBeenCompleted = false
+    
+    
+    let currentTime = Calendar.current.component(.hour, from: Date())
     var revisionSlotTime = 0
     var currentDayNum = 0
     var dayOfTheWeekString = ""
@@ -41,21 +46,15 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundCell: UIView!
     
     
-    
     var stars : Int!
     
-    var completed = false
     let deselectImage = UIImage(named: "checkmark.circle")
     let selectImage = UIImage(named: "checkmark.circle.fill")
     
-    
-    
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var moduleLabel: UILabel!
+
     
     
     @IBAction func clickedBtn(_ sender: UIButton) {
-        print(dayOfTheWeekString)
         if(!sender.isSelected){
             sessionCompleted(indexPath: indexPathForCell!, sender)
             
@@ -73,25 +72,42 @@ class PlanTableViewCell: UITableViewCell {
     
     // when you tick off a session
     func sessionCompleted(indexPath: IndexPath, _ sender: UIButton){
-        
+        let slotCompleted = true
+
         if(isItOnGoing()){ //
             let alert = UIAlertController(title: "Are you ready to start?", message: "You will earn 50 stars for starting this session on time.", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
+                hasBeenCompleted = true
                 if delegate?.daySelected == "monday" {
                     delegate?.mondayCompleted[indexPath.row] = true
+                    defaults.setValue( delegate?.mondayCompleted, forKey: "mondayCompleted")
+          
+
                 } else if delegate?.daySelected == "tuesday" {
                     delegate?.tuesdayCompleted[indexPath.row] = true
+                    defaults.setValue( delegate?.tuesdayCompleted, forKey: "tuesdayCompleted")
+
                 } else if delegate?.daySelected == "wednesday" {
                     delegate?.wednesdayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.wednesdayCompleted, forKey: "wednesdayCompleted")
+
                 } else if delegate?.daySelected == "thursday" {
                     delegate?.thursdayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.thursdayCompleted, forKey: "thursdayCompleted")
+
                 } else if delegate?.daySelected == "friday" {
                     delegate?.fridayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.fridayCompleted, forKey: "fridayCompleted")
+
                 } else if delegate?.daySelected == "saturday" {
                     delegate?.saturdayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.saturdayCompleted, forKey: "saturdayCompleted")
+
                 } else if delegate?.daySelected == "sunday" {
                     delegate?.sundayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.sundayCompleted, forKey: "sundayCompleted")
+
                 }
                 sender.isSelected.toggle()
                 tickBtn.layer.add(bounceAnimation, forKey: nil)
@@ -101,31 +117,54 @@ class PlanTableViewCell: UITableViewCell {
                                 
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] action in
-                completed = false
+                
+                //completed = false
+                
             }))
             
             delegate?.present(alert, animated: true)
             
         } else{
+           
             let alert = UIAlertController(title: "Are you ready to start?", message: "You will earn 150 stars for starting this session early.", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
                 if delegate?.daySelected == "monday" {
                     delegate?.mondayCompleted[indexPath.row] = true
+                    defaults.setValue( delegate?.mondayCompleted, forKey: "mondayCompleted")
+                
+
                 } else if delegate?.daySelected == "tuesday" {
                     delegate?.tuesdayCompleted[indexPath.row] = true
+                    defaults.setValue( delegate?.tuesdayCompleted, forKey: "tuesdayCompleted")
+
                 } else if delegate?.daySelected == "wednesday" {
                     delegate?.wednesdayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.wednesdayCompleted, forKey: "wednesdayCompleted")
+
                 } else if delegate?.daySelected == "thursday" {
                     delegate?.thursdayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.thursdayCompleted, forKey: "thursdayCompleted")
+
                 } else if delegate?.daySelected == "friday" {
                     delegate?.fridayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.fridayCompleted, forKey: "fridayCompleted")
+
                 } else if delegate?.daySelected == "saturday" {
                     delegate?.saturdayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.saturdayCompleted, forKey: "saturdayCompleted")
+
                 } else if delegate?.daySelected == "sunday" {
                     delegate?.sundayCompleted[indexPath.row] = true
+                    defaults.setValue(delegate?.sundayCompleted, forKey: "sundayCompleted")
+
                 }
+                
+                backgroundCell.backgroundColor = planetGreen
+
                 sender.isSelected.toggle()
+                tickBtn.layer.add(bounceAnimation, forKey: nil)
+
                 giveStars(amount: 150)
                 
             }))
@@ -143,18 +182,76 @@ class PlanTableViewCell: UITableViewCell {
     public func configure(with title:String, time:Int, indexPath: IndexPath, selectedDayNum: Int, selectedDayOfTheWeekString: String){
         timeLabel.text = String(time) + ":00"
         revisionSlotTime = time
-        
-        
+                
         let strikeTitle: NSMutableAttributedString =  NSMutableAttributedString(string: title)
         strikeTitle.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, strikeTitle.length))
         
         let nonStrikeTitle: NSMutableAttributedString =  NSMutableAttributedString(string: title)
         moduleLabel.attributedText = nonStrikeTitle
         
+        
         if(isItToday()){
             tickBtn.isHidden = false
             moduleLabel.textColor = UIColor.white
             timeLabel.textColor = UIColor.white
+            
+            // if it is later and not next (in next hour), make it white.
+            if (isItLater() && !isItUpcoming()){
+                
+                
+                //
+                if(delegate?.daySelected == "monday"){
+                    var completedSlotsArr = defaults.array(forKey: "mondayCompleted")
+                    completedSlotsArr![indexPath.row] = false
+                    defaults.setValue(completedSlotsArr, forKey: "mondayCompleted")
+                    
+                    
+                    
+                    
+                    
+                    
+                } else if(delegate?.daySelected == "tuesday"){
+                    
+                    
+                    var completedSlotsArr = defaults.array(forKey: "tuesdayCompleted" )as? [Bool] ?? [allFalseMondayCompleted]
+                    if (completedSlotsArr != [] ){
+                        print("completed slots arrr")
+
+                        print(completedSlotsArr)
+
+                        completedSlotsArr![indexPath.row] = false
+                        defaults.setValue(completedSlotsArr, forKey: "tuesdayCompleted")
+                    }
+                    
+                    
+                } else if(delegate?.daySelected == "wednesday"){
+                    var completedSlotsArr = defaults.array(forKey: "wednesdayCompleted")
+                    completedSlotsArr![indexPath.row] = false
+                    defaults.setValue(completedSlotsArr, forKey: "wednesdayCompleted")
+                } else if(delegate?.daySelected == "thursday"){
+                    var completedSlotsArr = defaults.array(forKey: "thursdayCompleted")
+                    completedSlotsArr![indexPath.row] = false
+                    defaults.setValue(completedSlotsArr, forKey: "thursdayCompleted")
+                } else if(delegate?.daySelected == "friday"){
+                    var completedSlotsArr = defaults.array(forKey: "fridayyCompleted")
+                    completedSlotsArr![indexPath.row] = false
+                    defaults.setValue(completedSlotsArr, forKey: "fridayCompleted")
+                } else if(delegate?.daySelected == "saturday"){
+                    var completedSlotsArr = defaults.array(forKey: "saturdayCompleted")
+                    completedSlotsArr![indexPath.row] = false
+                    defaults.setValue(completedSlotsArr, forKey: "mondayCompleted")
+                } else if(delegate?.daySelected == "sunday"){
+                    var completedSlotsArr = defaults.array(forKey: "sundayCompleted")
+                    completedSlotsArr![indexPath.row] = false
+                    defaults.setValue(completedSlotsArr, forKey: "sundayCompleted")
+                }
+            }
+            
+            
+            
+            
+            
+            
             
             if(isItMissed()){ // it is missed
                 backgroundCell.backgroundColor = planetRed
@@ -175,7 +272,6 @@ class PlanTableViewCell: UITableViewCell {
                 moduleLabel.textColor = UIColor.white
                 timeLabel.textColor = UIColor.white
                 backgroundCell.backgroundColor = planetYellow
-                backgroundCell.setBottomBorder1()
             }
             
             if(isItOnGoing() && !isItMissed()){  // if its on going make blue
@@ -191,21 +287,64 @@ class PlanTableViewCell: UITableViewCell {
             }
             
             if(isItCompleted(indexPath: indexPath)){ // if it is today,completed
+                backgroundCell.backgroundColor = planetGreen
+
                 if(!tickBtn.isSelected){ // if not selected
                     tickBtn.isSelected.toggle() // select
                     backgroundCell.backgroundColor = planetGreen
+
                 }
             } else { // if not completed
                 if(tickBtn.isSelected){ // if selected
                     tickBtn.isSelected.toggle() // deselect
                 }
             }
+         
+            
         } else{ // not today
             moduleLabel.textColor = UIColor.white
             timeLabel.textColor = UIColor.white
             backgroundCell.backgroundColor = UIColor.darkGray
             tickBtn.isHidden = true
-
+            
+            // set to other days revision slots to not completed®
+            if(delegate?.daySelected == "monday"){
+                var completedSlotsArr = defaults.array(forKey: "mondayCompleted")
+                completedSlotsArr![indexPath.row] = false
+      
+                defaults.setValue(completedSlotsArr, forKey: "mondayCompleted")
+                
+            } else if(delegate?.daySelected == "tuesday"){
+                var completedSlotsArr = defaults.array(forKey: "tuesdayCompleted")
+              
+                completedSlotsArr![indexPath.row] = false
+                defaults.setValue(completedSlotsArr, forKey: "tuesdayCompleted")
+                
+            } else if(delegate?.daySelected == "wednesday"){
+                var completedSlotsArr = defaults.array(forKey: "wednesdayCompleted")
+                completedSlotsArr![indexPath.row] = false
+                defaults.setValue(completedSlotsArr, forKey: "wednesdayCompleted")
+                
+            } else if(delegate?.daySelected == "thursday"){
+                var completedSlotsArr = defaults.array(forKey: "thursdayCompleted")
+                completedSlotsArr![indexPath.row] = false
+                defaults.setValue(completedSlotsArr, forKey: "thursdayCompleted")
+                
+            } else if(delegate?.daySelected == "friday"){
+                var completedSlotsArr = defaults.array(forKey: "fridayyCompleted")
+                completedSlotsArr![indexPath.row] = false
+                defaults.setValue(completedSlotsArr, forKey: "fridayCompleted")
+                
+            } else if(delegate?.daySelected == "saturday"){
+                var completedSlotsArr = defaults.array(forKey: "saturdayCompleted")
+                completedSlotsArr![indexPath.row] = false
+                defaults.setValue(completedSlotsArr, forKey: "saturdayCompleted")
+                
+            } else if(delegate?.daySelected == "sunday"){
+                var completedSlotsArr = defaults.array(forKey: "sundayCompleted")
+                completedSlotsArr![indexPath.row] = false
+                defaults.setValue(completedSlotsArr, forKey: "sundayCompleted")
+            }
         }
         
     }
@@ -216,6 +355,13 @@ class PlanTableViewCell: UITableViewCell {
         } else {
             return false
         }
+    }
+    
+    func isItLater() -> Bool {
+        if(currentTime < revisionSlotTime){
+            return true
+        }
+        return false
     }
     
     func isItOnGoing() -> Bool{
@@ -248,21 +394,64 @@ class PlanTableViewCell: UITableViewCell {
         return false
     }
    
+    func isItValid(indexPath: IndexPath) -> Bool{
+        if(((delegate?.mondayCompleted.count)!-1) < indexPath.row){
+            return false
+        }
+        return true
+    }
+    
+
     func isItCompleted(indexPath: IndexPath) -> Bool{
+        let sessionsCompletedOnDay = defaults.array(forKey: "mondayCompleted")
+
         if(delegate?.daySelected == "monday"){
-            if (delegate?.mondayCompleted[indexPath.row] == true){return true} // if it is completed
+            let sessionsCompletedOnDay = defaults.array(forKey: "mondayCompleted")
+
+            if (sessionsCompletedOnDay![indexPath.row] as! Bool == true){
+                return true
+        } // if it is completed
+            
+            
+            
+            
         } else if(delegate?.daySelected == "tuesday"){
-            if (delegate?.mondayCompleted[indexPath.row] == true){return true} // if it is completed
+            let sessionsCompletedOnDay = defaults.array(forKey: "tuesdayCompleted")
+
+            if (sessionsCompletedOnDay![indexPath.row] as! Bool == true){
+                return true
+            }// if it is completed
         } else if(delegate?.daySelected == "wednesday"){
-            if (delegate?.wednesdayCompleted[indexPath.row] == true){return true} // if it is completed
+            let sessionsCompletedOnDay = defaults.array(forKey: "tuesdayCompleted")
+
+            if (sessionsCompletedOnDay![indexPath.row] as! Bool == true){
+                return true
+            } // if it is completed
         } else if(delegate?.daySelected == "thursday"){
-            if (delegate?.thursdayCompleted[indexPath.row] == true){return true} // if it is completed
+            let sessionsCompletedOnDay = defaults.array(forKey: "thursdayCompleted")
+
+            if (sessionsCompletedOnDay![indexPath.row] as! Bool == true){
+                return true
+            }// if it is completed
         } else if(delegate?.daySelected == "friday"){
-            if (delegate?.fridayCompleted[indexPath.row] == true){return true} // if it is completed
+            let sessionsCompletedOnDay = defaults.array(forKey: "fridayCompleted")
+
+            if (sessionsCompletedOnDay![indexPath.row] as! Bool == true){
+                return true
+            }// if it is completed
         } else if(delegate?.daySelected == "saturday"){
-            if (delegate?.saturdayCompleted[indexPath.row] == true){return true} // if it is completed
+            let sessionsCompletedOnDay = defaults.array(forKey: "saturdayCompleted")
+
+            if (sessionsCompletedOnDay![indexPath.row] as! Bool == true){
+                return true
+            }
         } else if(delegate?.daySelected == "sunday"){
-            if (delegate?.sundayCompleted[indexPath.row] == true){ return true}// if it is completed
+            let sessionsCompletedOnDay = defaults.array(forKey: "tuesdayCompleted")
+
+            if (sessionsCompletedOnDay![indexPath.row] as! Bool == true){
+                return true
+            }
+        
         }
         return false
     }
@@ -288,7 +477,7 @@ class PlanTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "EEEE"
         dayOfTheWeekString = dateFormatter.string(from: date).lowercased()
         
-        
+
         
         // Initialization code
     }

@@ -16,22 +16,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appbackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="6tj-pF-gcc">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nx6-Ow-P81">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="world_with_shade.png" translatesAutoresizingMaskIntoConstraints="NO" id="2DI-XE-Z7f">
-                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="world.png" translatesAutoresizingMaskIntoConstraints="NO" id="2DI-XE-Z7f">
+                                <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="INa-pP-bW5"/>
+                                    <constraint firstAttribute="height" constant="100" id="wsj-l2-777"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6tj-pF-gcc" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="8BH-FX-zrA"/>
-                            <constraint firstItem="6tj-pF-gcc" firstAttribute="centerX" secondItem="2DI-XE-Z7f" secondAttribute="centerX" id="9Q8-c5-gcH"/>
-                            <constraint firstItem="6tj-pF-gcc" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Ms0-5O-pzT"/>
-                            <constraint firstItem="6tj-pF-gcc" firstAttribute="centerY" secondItem="2DI-XE-Z7f" secondAttribute="centerY" id="iUY-ac-2Zq"/>
-                            <constraint firstAttribute="trailing" secondItem="6tj-pF-gcc" secondAttribute="trailing" id="jGB-DV-Yho"/>
-                            <constraint firstAttribute="bottom" secondItem="6tj-pF-gcc" secondAttribute="bottom" id="jco-d4-ftt"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="2LY-v8-kPw"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="95v-0k-5Os"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="F66-Jk-zj6"/>
+                            <constraint firstAttribute="bottom" secondItem="Nx6-Ow-P81" secondAttribute="bottom" id="Seh-gG-kH9"/>
+                            <constraint firstItem="2DI-XE-Z7f" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lNd-ZH-SqT"/>
+                            <constraint firstItem="2DI-XE-Z7f" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qNB-hf-eUD"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -41,8 +45,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="appbackground.png" width="428" height="926"/>
-        <image name="world_with_shade.png" width="141" height="140"/>
+        <image name="background.png" width="414" height="896"/>
+        <image name="world.png" width="141" height="140"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
