@@ -19,9 +19,10 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var calendarBox: JTAppleCalendarView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var starsLabel: UILabel!
-
+    @IBOutlet weak var streakLabel: UILabel!
     
     //instantiate variables
+    let currentTime = Calendar.current.component(.hour, from: Date()) // time right now
     var modules = [String]() // users modules
     var dailyStudyHours : Int! // default daily hours for study
     var modulesDict = [String : Int]() //modules:confidence
@@ -29,6 +30,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     var startingTime = 10
     var interval = 2
     var daysDict = [String : [Int:String]] () // [days : [time:modules]]
+    var timesDict = [Int:String]() // time:module
     var dayOfTheWeekString = "" // day today "monday"
     var daySelected = ""        // day selected
     var selectedDayNumber = 0   // day selected number 14    (14th march)
@@ -45,28 +47,21 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     var sunday = [String]()
     
         // array of completed sessions
-    var mondayCompleted = [Bool]()     //[true, false, false, true]
+    var mondayCompleted = [Bool]()     // aka [true, false, false, true]
     var tuesdayCompleted = [Bool]()
     var wednesdayCompleted = [Bool]()
     var thursdayCompleted = [Bool]()
     var fridayCompleted = [Bool]()
     var saturdayCompleted = [Bool]()
     var sundayCompleted = [Bool]()
-    
-    var allFalseMondayCompleted = [Bool]()     //[true, false, false, true]
-    var allFalseTuesdayCompleted = [Bool]()
-    var allFalseWednesdayCompleted = [Bool]()
-    var allFalseThursdayCompleted = [Bool]()
-    var allFalseFridayCompleted = [Bool]()
-    var allFalseSaturdayCompleted = [Bool]()
-    var allFalseSundayCompleted = [Bool]()
-    
-    //progress
-    var stars = 0
-    var level = 1
-    var levels = [0,100,250,375,500,700,1000,1300,1700,2200,3800,4700,5700,7000,8000,9000,10000,12000,14000,160000,18000,20000,25000] //amount of stars needed for each level
-    var progress = 0.0  // percentage of closeness to next level
 
+    
+    // progress values
+    var stars = 0 // amount of stars user has
+    var level = 1 // users level
+    var levels = [0,250,500,700,1000,1300,1700,2200,3800,4700,5700,7000,8000,9000,10000,12000,14000,160000,18000,20000,25000] //amount of stars needed for each level
+    var progress = 0.0  // percentage of closeness to next level
+    var streak = 0
     
     
     // add into array
@@ -79,13 +74,9 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.reloadData()
     }
     
-
-    
-  
-    
     // formatter for dates
+    // count fired for timer running in background
     let formatter = DateFormatter()
-
     var countFired = 0
     
     // Calculate percentage based on given values
@@ -94,19 +85,20 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         return val / 100.0
     }
     
-
     // generate the days / sessions
     public func generateTimeTable(weeklyAllocatedHours: Dictionary<String,Double>) {
         let weeklyAllocated = weeklyAllocatedHours // how many hours allocated to each module
      
-        var timesDict = [Int:String]() // the hours for each modules
+        // the hours for each modules
         var moduleCounter = [String:Int]() // how many times the module shows
         
         for module in modules{ // initialise counter
             moduleCounter[module] = 0
         }
         
-        // empty the arrays (fixed duplication bug)
+        timesDict.removeAll()
+        
+        // reset users schedule
         monday = []
         tuesday = []
         wednesday = []
@@ -114,8 +106,14 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         friday = []
         saturday = []
         sunday = []
-        
-        
+        mondayCompleted = []
+        tuesdayCompleted = []
+        wednesdayCompleted = []
+        thursdayCompleted = []
+        fridayCompleted = []
+        saturdayCompleted = []
+        sundayCompleted = []
+
         var iterator = 0
         for day in selectedDays { // each day
             var time = startingTime // start at the starting time
@@ -147,137 +145,201 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 time = time+interval // next time slot is..
             }
             
-        let sortedKeys = Array(timesDict.values).sorted(by: <) // time:hour from earliest to latest
+        let revisionTimes = Array(timesDict.values).sorted(by: <) // time:hour from earliest to latest
             
         // add revision to that day
             if day == "monday" {
-                monday.append(contentsOf: sortedKeys)
+                monday.append(contentsOf: revisionTimes)
                 
                 // generate sessions for that day as false
                 for _ in 1...monday.count {
                     mondayCompleted.append(false)
                 }
-                defaults.setValue(mondayCompleted, forKey: "falseMondayCompleted")
                 
             } else if day == "tuesday" {
-                tuesday.append(contentsOf: sortedKeys)
+                tuesday.append(contentsOf: revisionTimes)
                 
                 // generate sessions for that day as false
                 for _ in 1...tuesday.count {
                     tuesdayCompleted.append(false)
                 }
-                defaults.setValue(tuesdayCompleted, forKey: "falseTuesdayCompleted")
-
                 
             } else if day == "wednesday" {
-                wednesday.append(contentsOf: sortedKeys)
+                wednesday.append(contentsOf: revisionTimes)
                 
                 // generate sessions for that day as false
                 for _ in 1...wednesday.count {
                     wednesdayCompleted.append(false)
                 }
-                defaults.setValue(wednesdayCompleted, forKey: "falseWednesdayCompleted")
-
                 
             } else if day == "thursday" {
-                thursday.append(contentsOf: sortedKeys)
+                thursday.append(contentsOf: revisionTimes)
                 
                 // generate sessions for that day as false
                 for _ in 1...thursday.count {
                     thursdayCompleted.append(false)
                 }
-                defaults.setValue(thursdayCompleted, forKey: "falseThursdayCompleted")
-
                 
             } else if day == "friday" {
-                friday.append(contentsOf: sortedKeys)
-                
+                friday.append(contentsOf: revisionTimes)
+            
                 // generate sessions for that day as false
                 for _ in 1...friday.count {
                     fridayCompleted.append(false)
                 }
-                defaults.setValue(fridayCompleted, forKey: "falseFridayCompleted")
-
                 
             } else if day == "saturday" {
-                saturday.append(contentsOf: sortedKeys)
-                // generate sessions for that day as false
+                saturday.append(contentsOf: revisionTimes)
                 
+                // generate sessions for that day as false
                 for _ in 1...saturday.count {
                     saturdayCompleted.append(false)
                 }
-                defaults.setValue(saturdayCompleted, forKey: "falseSaturdayCompleted")
-
                 
             } else if day == "sunday" {
-                sunday.append(contentsOf: sortedKeys)
+                sunday.append(contentsOf: revisionTimes)
                 
                 // generate sessions for that day as false
                 for _ in 1...sunday.count {
                     sundayCompleted.append(false)
                 }
-                defaults.setValue(sundayCompleted, forKey: "falseSundayCompleted")
 
+            
             }
             
-            // TO DO: completed lessons are saved
-
             daysDict.updateValue(timesDict , forKey: day)    //  [ day : [time of day : module] ]
         }
+      
         return
     }
     
-    
-   /* func generateFalseCompletedArr(day : String) -> Array<Bool> {
-        if day == "monday" {
-      // generate sessions for that day as false
-            for _ in 1...monday.count {
-                mondayCompleted.append(false)
+    // calculate users streak
+    func calculateStreak() {
+        
+        //retrieve completed sessions
+        let mondayCompleted = defaults.array(forKey: "mondayCompleted") as? [Bool] ?? [Bool]()
+        let tuesdayCompleted = defaults.array(forKey: "tuesdayCompleted") as? [Bool] ?? [Bool]()
+        let wednesdayCompleted = defaults.array(forKey: "wednesdayCompleted") as? [Bool] ?? [Bool]()
+        let thursdayCompleted = defaults.array(forKey: "thursdayCompleted") as? [Bool] ?? [Bool]()
+        let fridayCompleted = defaults.array(forKey: "fridayCompleted") as? [Bool] ?? [Bool]()
+        let saturdayCompleted = defaults.array(forKey: "saturdayCompleted") as? [Bool] ?? [Bool]()
+        let sundayCompleted = defaults.array(forKey: "sundayCompleted") as? [Bool] ?? [Bool]()
+        
+        // users stuff
+        var streak = defaults.integer(forKey: "streak")
+        var revisionSlotTime = startingTime // 10
+     
+        if(dayOfTheWeekString.lowercased() == "monday"){
+            if(mondayCompleted != []){
+                for i in 0...mondayCompleted.count-1 { // go through all sessions
+                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
+                        break
+                        
+                    } else if(mondayCompleted[i]){ //if it is completed +1 to streak
+                        streak += 1
+                        
+                    } else { //if it isnt completed
+                        streak = 0
+                    }
+                    revisionSlotTime += interval // go up two hours for next session
+                }
             }
-            
-        } else if day == "tuesday" {
-            
-            // generate sessions for that day as false
-            for _ in 1...tuesday.count {
-                tuesdayCompleted.append(false)
+        } else if (dayOfTheWeekString.lowercased() == "tuesday"){
+            if(tuesdayCompleted != []){
+                for i in 0...tuesdayCompleted.count-1 { // go through all sessions
+                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
+                        break
+                        
+                    } else if(tuesdayCompleted[i]){ //if it is completed +1 to streak
+                        streak += 1
+                        
+                    } else { //if it isnt completed
+                        streak = 0
+                    }
+                    revisionSlotTime += interval // go up two hours for next session
+                }
             }
-            
-        } else if day == "wednesday" {
-            
-            // generate sessions for that day as false
-            for _ in 1...wednesday.count {
-                wednesdayCompleted.append(false)
+        } else if (dayOfTheWeekString.lowercased() == "wednesday"){
+            if(wednesdayCompleted != []){
+                for i in 0...wednesdayCompleted.count-1 { // go through all sessions
+                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
+                        break
+                        
+                    } else if(wednesdayCompleted[i]){ //if it is completed +1 to streak
+                        streak += 1
+                        
+                    } else { //if it isnt completed
+                        streak = 0
+                    }
+                    revisionSlotTime += interval // go up two hours for next session
+                }
             }
-            
-        } else if day == "thursday" {
-            
-            // generate sessions for that day as false
-            for _ in 1...thursday.count {
-                thursdayCompleted.append(false)
+        } else if (dayOfTheWeekString.lowercased() == "thursday"){
+            if(thursdayCompleted != []){
+                for i in 0...thursdayCompleted.count-1 { // go through all sessions
+                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
+                        break
+                        
+                    } else if(thursdayCompleted[i]){ //if it is completed +1 to streak
+                        streak += 1
+                        
+                    } else { //if it isnt completed
+                        streak = 0
+                    }
+                    revisionSlotTime += interval // go up two hours for next session
+                }
             }
-            
-        } else if day == "friday" {
-            
-            // generate sessions for that day as false
-            for _ in 1...friday.count {
-                fridayCompleted.append(false)
+        } else if (dayOfTheWeekString.lowercased() == "friday"){
+            if(fridayCompleted != []){
+                for i in 0...fridayCompleted.count-1 { // go through all sessions
+                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
+                        break
+                        
+                    } else if(fridayCompleted[i]){ //if it is completed +1 to streak
+                        streak += 1
+                        
+                    } else { //if it isnt completed
+                        streak = 0
+                    }
+                    revisionSlotTime += interval // go up two hours for next session
+                }
             }
-            
-        } else if day == "saturday" {
-            // generate sessions for that day as false
-            
-            for _ in 1...saturday.count {
-                saturdayCompleted.append(false)
+        } else if (dayOfTheWeekString.lowercased() == "saturday"){
+            if(saturdayCompleted != []){
+                for i in 0...saturdayCompleted.count-1 { // go through all sessions
+                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
+                        break
+                        
+                    } else if(saturdayCompleted[i]){ //if it is completed +1 to streak
+                        streak += 1
+                        
+                    } else { //if it isnt completed
+                        streak = 0
+                    }
+                    revisionSlotTime += interval // go up two hours for next session
+                }
             }
-
-        } else if day == "sunday" {
-            
-            // generate sessions for that day as false
-            for _ in 1...sunday.count {
-                return sundayCompleted.append(false)
+        } else if (dayOfTheWeekString.lowercased() == "sunday"){
+            if(sundayCompleted != []){
+                for i in 0...sundayCompleted.count-1 { // go through all sessions
+                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
+                        break
+                        
+                    } else if(sundayCompleted[i]){ //if it is completed +1 to streak
+                        streak += 1
+                        
+                    } else { //if it isnt completed
+                        streak = 0
+                    }
+                    revisionSlotTime += interval // go up two hours for next session
+                }
             }
         }
-    }*/
+        
+        // store streak
+        defaults.setValue(streak, forKey: "streak")
+    }
+
     
     // Calculate how many hours of revision
     func calculateHoursPerModule() -> Dictionary<String,Double>{
@@ -311,6 +373,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         return(modulesWithWeeklyHours)
     }
 
+    
     // *******************     revision planner table view     *************************
     
     // how many rows
@@ -374,6 +437,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         return bounceAnimation
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -395,17 +459,10 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         planTable.delegate = self
         planTable.dataSource = self
         
-        
-        
-        
-        
         // if there is modules, generate the planner
         if(modules.count != 0){
             generateTimeTable(weeklyAllocatedHours: calculateHoursPerModule())
         }
-        
-      //  print("after generate planner")
-       // print(mondayCompleted)
 
         
         // find day and show the plan for that day
@@ -427,21 +484,16 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // select current day
         daySelected = dayOfTheWeekString
 
-        mondayCompleted = defaults.array(forKey: "mondayCompleted") as? [Bool] ?? allFalseMondayCompleted
-        tuesdayCompleted = defaults.array(forKey: "tuesdayCompleted") as? [Bool] ?? allFalseTuesdayCompleted
-        wednesdayCompleted = defaults.array(forKey: "wednesdayCompleted") as? [Bool] ?? allFalseWednesdayCompleted
-        thursdayCompleted = defaults.array(forKey: "thursdayCompleted") as? [Bool] ?? allFalseThursdayCompleted
-        fridayCompleted = defaults.array(forKey: "fridayCompleted") as? [Bool] ?? allFalseFridayCompleted
-        saturdayCompleted = defaults.array(forKey: "saturdayCompleted") as? [Bool] ?? allFalseSaturdayCompleted
-        sundayCompleted = defaults.array(forKey: "sundayCompleted") as? [Bool] ?? allFalseSundayCompleted
-        
-        
-        print(" AFTER USER DEFAULTS ")
-        print(mondayCompleted)
+        mondayCompleted = defaults.array(forKey: "mondayCompleted") as? [Bool] ?? mondayCompleted
+        tuesdayCompleted = defaults.array(forKey: "tuesdayCompleted") as? [Bool] ?? tuesdayCompleted
+        wednesdayCompleted = defaults.array(forKey: "wednesdayCompleted") as? [Bool] ?? wednesdayCompleted
+        thursdayCompleted = defaults.array(forKey: "thursdayCompleted") as? [Bool] ?? thursdayCompleted
+        fridayCompleted = defaults.array(forKey: "fridayCompleted") as? [Bool] ?? fridayCompleted
+        saturdayCompleted = defaults.array(forKey: "saturdayCompleted") as? [Bool] ?? saturdayCompleted
+        sundayCompleted = defaults.array(forKey: "sundayCompleted") as? [Bool] ?? sundayCompleted
         
         // refresh the planner
         tableView.reloadData()
-        
         
         // runs in background: retrieves stars, levels and updates progress
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in self.countFired += 1
@@ -450,15 +502,23 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.stars = defaults.integer(forKey: "stars")
                 self.starsLabel.text = String(self.stars)//keep updating label
                 
+                // show correct streak
+                calculateStreak()
+                self.streak = defaults.integer(forKey: "streak")
+                self.streakLabel.text = String(self.streak) //keep updating label
                 
-                                if (self.stars != 0){ // if stars isnt 0
+                if (self.stars != 0){ // if stars isnt 0
                     for lvl in self.levels {  // for each level
                         if (stars < lvl) { // where stars needed is higher than stars
                             level = levels.firstIndex(of: lvl)!
                             levelLabel.text = String(level)
                             
+                            // store in data
                             defaults.setValue(level, forKey: "level")
-                            self.starsLabel.text = String(self.stars) + "/" + String(lvl) //keep updating label
+                            
+                            
+                            self.starsLabel.text = String(self.stars) // + "/" + String(lvl) //keep updating label
+                            
                             self.progress = Double(stars) / Double(lvl)
                             
                             let barViewController = self.tabBarController?.viewControllers
@@ -469,6 +529,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                         }
                     }
                 }
+        
             }
         }
     }

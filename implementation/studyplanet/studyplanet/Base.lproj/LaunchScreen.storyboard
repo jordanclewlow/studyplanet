@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,14 +13,14 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nx6-Ow-P81">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nx6-Ow-P81">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="world.png" translatesAutoresizingMaskIntoConstraints="NO" id="2DI-XE-Z7f">
-                                <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <rect key="frame" x="462" y="633" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="INa-pP-bW5"/>
                                     <constraint firstAttribute="height" constant="100" id="wsj-l2-777"/>
@@ -30,12 +30,16 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="2LY-v8-kPw"/>
-                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="95v-0k-5Os"/>
-                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="F66-Jk-zj6"/>
-                            <constraint firstAttribute="bottom" secondItem="Nx6-Ow-P81" secondAttribute="bottom" id="Seh-gG-kH9"/>
+                            <constraint firstAttribute="bottom" secondItem="Nx6-Ow-P81" secondAttribute="bottom" id="1kb-Yf-df1"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3To-KP-Oz0"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="IMh-Tk-M9H"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IXA-SQ-zuK"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Z1D-VP-siD"/>
+                            <constraint firstAttribute="bottom" secondItem="Nx6-Ow-P81" secondAttribute="bottom" id="bfp-uL-Lsd"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kCA-A7-zJo"/>
                             <constraint firstItem="2DI-XE-Z7f" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lNd-ZH-SqT"/>
                             <constraint firstItem="2DI-XE-Z7f" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qNB-hf-eUD"/>
+                            <constraint firstItem="Nx6-Ow-P81" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="tUx-mV-5Ik"/>
                         </constraints>
                     </view>
                 </viewController>

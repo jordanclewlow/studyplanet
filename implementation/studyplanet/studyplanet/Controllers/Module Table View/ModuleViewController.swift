@@ -20,6 +20,8 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var interval = 2
     var startingTime = 10
     
+    
+    // declare outlets
     @IBOutlet weak var applyBtnOutlet: UIButton!
     @IBOutlet weak var mondayBtnOutlet: UIButton!
     @IBOutlet weak var tuesdayBtnOutlet: UIButton!
@@ -34,6 +36,8 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var moduleMessageLabel: UILabel!
     @IBOutlet var moduleTable: UITableView!
 
+    
+    
     
     //  *********************   button  and  actions  *********************
     @IBAction func applyBtn(_ sender: UIButton) {
@@ -53,22 +57,6 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         svc.modules = modules
         svc.selectedDays = selectedDays
         
-        // reset all algorithm values
-        svc.monday = []
-        svc.mondayCompleted = []
-        svc.tuesday = []
-        svc.tuesdayCompleted = []
-        svc.wednesday = []
-        svc.wednesdayCompleted = []
-        svc.thursday = []
-        svc.thursdayCompleted = []
-        svc.friday = []
-        svc.fridayCompleted = []
-        svc.saturday = []
-        svc.saturdayCompleted = []
-        svc.sunday = []
-        svc.sundayCompleted = []
-        
         // error message if something not chosen
         if(modules.count == 0 || selectedDays == [] || dailyStudyHours == nil){
             let alert = UIAlertController(title: "Please fill out all criteria", message:nil, preferredStyle: .alert)
@@ -80,6 +68,11 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let modulesWithHoursDict = svc.calculateHoursPerModule()
             svc.generateTimeTable(weeklyAllocatedHours: modulesWithHoursDict)
             
+            print("in module view")
+            print("svc:")
+            print(svc.thursdayCompleted)
+            print("defaults")
+            print(defaults.array(forKey: "thursdayCompleted"))
             svc.tableView.reloadData()
         }
     }
@@ -103,6 +96,8 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         alert.addAction(action)
         present(alert, animated:true)
     }
+    
+    
     
     // buttons for selecting days
     @IBAction func mondayButton(_ sender: UIButton) {
@@ -285,8 +280,6 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         moduleTable.register(ModuleTableViewCell.nib(), forCellReuseIdentifier: ModuleTableViewCell.identifier)
@@ -334,8 +327,16 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         makeIntoCircle(button: sundayBtnOutlet)
         sundayBtnOutlet.setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
         sundayBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.selected)
-        sundayBtnOutlet .backgroundColor = UIColor.clear
+        sundayBtnOutlet.backgroundColor = UIColor.clear
       
+        
+        // daily hours slider
+        // selected option color
+        segmentedControlOutlet.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+
+        // color of other options
+        segmentedControlOutlet.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
+        
         
         // retrieve values from user defaults
         dailyStudyHours = defaults.integer(forKey: "dailyStudyHours") as? Int ?? Int()
@@ -368,6 +369,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 sundayBtnOutlet.isSelected=true
                 sundayBtnOutlet.backgroundColor = UIColor.lightGray
             }
+            
             
             // reload module table
             tableView.reloadData()

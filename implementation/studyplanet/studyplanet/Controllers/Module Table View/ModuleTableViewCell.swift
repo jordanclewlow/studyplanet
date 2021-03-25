@@ -19,6 +19,7 @@ class ModuleTableViewCell: UITableViewCell {
     @IBOutlet weak var okBtn: UIButton!
     @IBOutlet weak var goodBtn: UIButton!
 
+    // users data
     var currentConfidence : Int!
     var defaultConfidence = 66
     
@@ -48,7 +49,6 @@ class ModuleTableViewCell: UITableViewCell {
             badBtn.isSelected = false
         }
         
-        print(confidence)
     }
 
     
