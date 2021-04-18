@@ -66,7 +66,7 @@
                             <constraint firstAttribute="width" constant="125" id="j3g-tr-6Bv"/>
                             <constraint firstAttribute="height" constant="20" id="th4-HS-mIg"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="13"/>
+                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="13"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>

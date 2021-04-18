@@ -22,7 +22,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var streakLabel: UILabel!
     
     //instantiate variables
-    let currentTime = Calendar.current.component(.hour, from: Date()) // time right now
+  
     var modules = [String]() // users modules
     var dailyStudyHours : Int! // default daily hours for study
     var modulesDict = [String : Int]() //modules:confidence
@@ -213,132 +213,9 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         return
     }
     
-    // calculate users streak
-    func calculateStreak() {
-        
-        //retrieve completed sessions
-        let mondayCompleted = defaults.array(forKey: "mondayCompleted") as? [Bool] ?? [Bool]()
-        let tuesdayCompleted = defaults.array(forKey: "tuesdayCompleted") as? [Bool] ?? [Bool]()
-        let wednesdayCompleted = defaults.array(forKey: "wednesdayCompleted") as? [Bool] ?? [Bool]()
-        let thursdayCompleted = defaults.array(forKey: "thursdayCompleted") as? [Bool] ?? [Bool]()
-        let fridayCompleted = defaults.array(forKey: "fridayCompleted") as? [Bool] ?? [Bool]()
-        let saturdayCompleted = defaults.array(forKey: "saturdayCompleted") as? [Bool] ?? [Bool]()
-        let sundayCompleted = defaults.array(forKey: "sundayCompleted") as? [Bool] ?? [Bool]()
-        
-        // users stuff
-        var streak = defaults.integer(forKey: "streak")
-        var revisionSlotTime = startingTime // 10
-     
-        if(dayOfTheWeekString.lowercased() == "monday"){
-            if(mondayCompleted != []){
-                for i in 0...mondayCompleted.count-1 { // go through all sessions
-                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
-                        break
-                        
-                    } else if(mondayCompleted[i]){ //if it is completed +1 to streak
-                        streak += 1
-                        
-                    } else { //if it isnt completed
-                        streak = 0
-                    }
-                    revisionSlotTime += interval // go up two hours for next session
-                }
-            }
-        } else if (dayOfTheWeekString.lowercased() == "tuesday"){
-            if(tuesdayCompleted != []){
-                for i in 0...tuesdayCompleted.count-1 { // go through all sessions
-                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
-                        break
-                        
-                    } else if(tuesdayCompleted[i]){ //if it is completed +1 to streak
-                        streak += 1
-                        
-                    } else { //if it isnt completed
-                        streak = 0
-                    }
-                    revisionSlotTime += interval // go up two hours for next session
-                }
-            }
-        } else if (dayOfTheWeekString.lowercased() == "wednesday"){
-            if(wednesdayCompleted != []){
-                for i in 0...wednesdayCompleted.count-1 { // go through all sessions
-                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
-                        break
-                        
-                    } else if(wednesdayCompleted[i]){ //if it is completed +1 to streak
-                        streak += 1
-                        
-                    } else { //if it isnt completed
-                        streak = 0
-                    }
-                    revisionSlotTime += interval // go up two hours for next session
-                }
-            }
-        } else if (dayOfTheWeekString.lowercased() == "thursday"){
-            if(thursdayCompleted != []){
-                for i in 0...thursdayCompleted.count-1 { // go through all sessions
-                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
-                        break
-                        
-                    } else if(thursdayCompleted[i]){ //if it is completed +1 to streak
-                        streak += 1
-                        
-                    } else { //if it isnt completed
-                        streak = 0
-                    }
-                    revisionSlotTime += interval // go up two hours for next session
-                }
-            }
-        } else if (dayOfTheWeekString.lowercased() == "friday"){
-            if(fridayCompleted != []){
-                for i in 0...fridayCompleted.count-1 { // go through all sessions
-                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
-                        break
-                        
-                    } else if(fridayCompleted[i]){ //if it is completed +1 to streak
-                        streak += 1
-                        
-                    } else { //if it isnt completed
-                        streak = 0
-                    }
-                    revisionSlotTime += interval // go up two hours for next session
-                }
-            }
-        } else if (dayOfTheWeekString.lowercased() == "saturday"){
-            if(saturdayCompleted != []){
-                for i in 0...saturdayCompleted.count-1 { // go through all sessions
-                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
-                        break
-                        
-                    } else if(saturdayCompleted[i]){ //if it is completed +1 to streak
-                        streak += 1
-                        
-                    } else { //if it isnt completed
-                        streak = 0
-                    }
-                    revisionSlotTime += interval // go up two hours for next session
-                }
-            }
-        } else if (dayOfTheWeekString.lowercased() == "sunday"){
-            if(sundayCompleted != []){
-                for i in 0...sundayCompleted.count-1 { // go through all sessions
-                    if(revisionSlotTime > currentTime){ // only include sessions that have happened
-                        break
-                        
-                    } else if(sundayCompleted[i]){ //if it is completed +1 to streak
-                        streak += 1
-                        
-                    } else { //if it isnt completed
-                        streak = 0
-                    }
-                    revisionSlotTime += interval // go up two hours for next session
-                }
-            }
-        }
-        
-        // store streak
-        defaults.setValue(streak, forKey: "streak")
-    }
+    
+    
+
 
     
     // Calculate how many hours of revision
@@ -440,6 +317,11 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
+        // load progress view so that badges show up
+        let progressVC = self.tabBarController?.viewControllers?[2] as! ProgressViewController
+        progressVC.loadView()
+        
         
         // ignore constraint erros
         defaults.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
@@ -503,7 +385,6 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.starsLabel.text = String(self.stars)//keep updating label
                 
                 // show correct streak
-                calculateStreak()
                 self.streak = defaults.integer(forKey: "streak")
                 self.streakLabel.text = String(self.streak) //keep updating label
                 
@@ -559,6 +440,7 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     func configureCell(view: JTAppleCell?, cellState: CellState) {
         guard let cell = view as? DateCell  else { return }
         cell.dateLabel.textColor = UIColor.white
+        handleHiddenCells(cell: cell, cellState: cellState)
         handleCellSelected(cell: cell, cellState: cellState)
     }
     
@@ -573,9 +455,10 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
             cell.selectedView.layer.cornerRadius = cell.selectedView.frame.width / 2
 
             cell.selectedView.layer.add(bounceAnimation, forKey: nil)
-        
+            
             // change selected day
             if cellState.column() == 0{
+                
                 daySelected = "monday"
             } else if cellState.column() == 1{
                 daySelected = "tuesday"
@@ -589,8 +472,9 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
                 daySelected = "saturday"
             }else if cellState.column() == 6{
                 daySelected = "sunday"
-            }            
-            
+            }
+
+        //print(cellState.column())
             // show day month year
             let date = Date()
             let dateFormatter = DateFormatter()
@@ -604,6 +488,13 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
         }
     }
     
+    func handleHiddenCells(cell: DateCell, cellState: CellState) {
+        if cellState.dateBelongsTo == .thisMonth {
+           cell.isHidden = false
+        } else {
+           cell.isHidden = true
+        }
+    }
     
     // configure cell
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
@@ -652,8 +543,8 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
         return ConfigurationParameters(startDate: startDate,
                                            endDate: endDate,
                                            numberOfRows: numberOfRows,
-                                           generateInDates: .forFirstMonthOnly,
-                                           generateOutDates: .off,
+                                           generateInDates: .forAllMonths,
+                                           generateOutDates: .tillEndOfRow,
                                            firstDayOfWeek: .monday,
                                            hasStrictBoundaries: false)
     }

@@ -4,8 +4,8 @@ class ProgressViewCell: UICollectionViewCell {
     @IBOutlet weak var badge: UIImageView!
     
     // badges
-    var welcome : UIImage = UIImage(named:"welcome")!
-    
+    var welcome : UIImage = UIImage(named:"world")!
+
     // levels
     var level2 : UIImage = UIImage(named:"level2")!
     var level5 : UIImage = UIImage(named:"level5")!

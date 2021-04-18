@@ -33,6 +33,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var moduleTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControlOutlet: UISegmentedControl!
+    //@IBOutlet weak var startingTimeSegmentedControlOutlet: UISegmentedControl!
     @IBOutlet weak var moduleMessageLabel: UILabel!
     @IBOutlet var moduleTable: UITableView!
 
@@ -41,7 +42,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //  *********************   button  and  actions  *********************
     @IBAction func applyBtn(_ sender: UIButton) {
-        // se
+        // create object for controller
         let barViewController = self.tabBarController?.viewControllers
         let svc = barViewController![1] as! PlanViewController  // planner
         
@@ -50,13 +51,14 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         defaults.setValue(modulesDict, forKey: "modulesDict")
         defaults.setValue(modules, forKey: "modules")
         defaults.setValue(selectedDays, forKey: "selectedDays")
-        
+
         // change values on the other view controller
         svc.dailyStudyHours = dailyStudyHours
         svc.modulesDict = modulesDict
         svc.modules = modules
         svc.selectedDays = selectedDays
-        
+        //svc.startingTime = startingTime
+
         // error message if something not chosen
         if(modules.count == 0 || selectedDays == [] || dailyStudyHours == nil){
             let alert = UIAlertController(title: "Please fill out all criteria", message:nil, preferredStyle: .alert)
@@ -67,14 +69,14 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else{
             let modulesWithHoursDict = svc.calculateHoursPerModule()
             svc.generateTimeTable(weeklyAllocatedHours: modulesWithHoursDict)
-            
-            print("in module view")
-            print("svc:")
-            print(svc.thursdayCompleted)
-            print("defaults")
-            print(defaults.array(forKey: "thursdayCompleted"))
             svc.tableView.reloadData()
+            _ = self.tabBarController?.selectedIndex = 1
+
         }
+        
+        
+       
+        
     }
     
     
@@ -83,6 +85,18 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         dailyStudyHours = sender.selectedSegmentIndex+1
     }
     
+    
+    /*@IBAction func startTimeSegmentedControl(_ sender: UISegmentedControl) {
+        if (sender.selectedSegmentIndex == 0){
+            startingTime = 6
+        } else if (sender.selectedSegmentIndex == 1) {
+            startingTime = 8
+        } else if (sender.selectedSegmentIndex == 2) {
+            startingTime = 10
+        } else if (sender.selectedSegmentIndex == 1){
+            startingTime = 12
+        }
+    }*/
     
     // add module buton
     @IBAction func addButton(_ sender: UIButton) {
@@ -110,10 +124,10 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             selectedDays.remove(at: mondayPos!)
         } else {
             // set selected
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor = UIColor.darkGray
             button.isSelected = true
             selectedDays.append("monday")
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor =  UIColor.darkGray
         }
     }
     
@@ -129,9 +143,10 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // set selected
             button.isSelected = true
             selectedDays.append("tuesday")
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor =  UIColor.darkGray
         }
     }
+    
     @IBAction func wednesdayButton(_ sender: UIButton) {
         let button = sender
         if button.isSelected {
@@ -144,7 +159,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // set selected
             button.isSelected = true
             selectedDays.append("wednesday")
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor =  UIColor.darkGray
         }
     }
     
@@ -160,7 +175,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // set selected
             button.isSelected = true
             selectedDays.append("thursday")
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor = UIColor.darkGray
         }
     }
     
@@ -176,7 +191,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // set selected
             button.isSelected = true
             selectedDays.append("friday")
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor = UIColor.darkGray
         }
     }
     
@@ -192,7 +207,7 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // set selected
             button.isSelected = true
             selectedDays.append("saturday")
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor = UIColor.darkGray
         }
     }
     
@@ -208,15 +223,10 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // set selected
             button.isSelected = true
             selectedDays.append("sunday")
-            button.backgroundColor = UIColor.lightGray
+            button.backgroundColor = UIColor.darkGray
 
         }
     }
-    
-    
-    
-    
-    
     
     
     
@@ -243,8 +253,6 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         button.clipsToBounds = true
     }
     
-
-    
     
     
     //  *********************       modules table        *********************
@@ -266,8 +274,6 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         modules.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
-
-
     
     
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -290,8 +296,8 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // set up UI
         applyBtnOutlet.layer.cornerRadius = 13
-        applyBtnOutlet.backgroundColor = UIColor.lightGray
-        applyBtnOutlet.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        applyBtnOutlet.backgroundColor = UIColor.systemGray6
+        applyBtnOutlet.setTitleColor(UIColor.black, for: UIControl.State.normal)
 
         
         makeIntoCircle(button: mondayBtnOutlet)
@@ -341,6 +347,22 @@ class ModuleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // retrieve values from user defaults
         dailyStudyHours = defaults.integer(forKey: "dailyStudyHours") as? Int ?? Int()
         segmentedControlOutlet.selectedSegmentIndex = dailyStudyHours-1
+        
+        /*
+        startingTime = defaults.integer(forKey: "startingTime")
+        var startingTimeIndex = 0
+        if(startingTime == 6){
+            startingTimeIndex = 0
+        } else if (startingTime == 8){
+            startingTimeIndex = 1
+        }else if (startingTime == 10){
+            startingTimeIndex = 2
+        }else if (startingTime == 12){
+            startingTimeIndex = 3
+        }
+        startingTimeSegmentedControlOutlet.selectedSegmentIndex = startingTime
+        */
+            
         modules = defaults.array(forKey:"modules") as? [String] ?? [String]()
         modulesDict = defaults.dictionary(forKey: "modulesDict") as? [String:Int] ?? [String:Int]()
         selectedDays = defaults.array(forKey: "selectedDays") as? [String] ?? [String]()

@@ -21,11 +21,17 @@ class AnimatedTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        super.loadView()
         selectedIndex = defaultIndex
 
         delegate = self
     }
+    
+    
 }
+
 
 extension AnimatedTabBarController: UITabBarControllerDelegate  {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
