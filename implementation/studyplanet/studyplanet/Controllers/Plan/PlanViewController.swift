@@ -318,6 +318,9 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        defaults.setValue(25, forKey: "streak")
+        defaults.setValue(10000, forKey: "stars")
+
         // load progress view so that badges show up
         let progressVC = self.tabBarController?.viewControllers?[2] as! ProgressViewController
         progressVC.loadView()
@@ -376,6 +379,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // refresh the planner
         tableView.reloadData()
+
         
         // runs in background: retrieves stars, levels and updates progress
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in self.countFired += 1

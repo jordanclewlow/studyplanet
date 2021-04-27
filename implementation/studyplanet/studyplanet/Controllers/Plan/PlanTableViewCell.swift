@@ -34,7 +34,7 @@ class PlanTableViewCell: UITableViewCell {
     
     
     // instantiate variables
-    var currentTime = Calendar.current.component(.hour, from: Date())// time right now
+    var currentTime = 15//Calendar.current.component(.hour, from: Date())// time right now
     var revisionSlotTime = 0 // time of revision slot cell
     var currentDayNum = 0 // aka 14  <- march
     var selectedDayNum = 0 // aka 14  <- march
@@ -467,9 +467,10 @@ class PlanTableViewCell: UITableViewCell {
                 tickBtn.isHidden = true
             }
             
-            if(isItOnGoing()){ // if current slot is not earlier than current time
+
+            if(isItOnGoing()){ // if current slot is not earlier than current time FIX FIX FIX
                 if(isPrevMissed()){
-                    defaults.setValue(0, forKey: "streak")
+                    //defaults.setValue(0, forKey: "streak")
                 }
             }
             
@@ -546,7 +547,7 @@ class PlanTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        streak = defaults.value(forKey: "streak") as? Int ?? 0
+        streak = defaults.integer(forKey: "streak") 
         
         // ignore constraint erros
         defaults.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
