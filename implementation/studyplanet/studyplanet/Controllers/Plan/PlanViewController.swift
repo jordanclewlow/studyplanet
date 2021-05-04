@@ -145,7 +145,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
                 time = time+interval // next time slot is..
             }
             
-        let revisionTimes = Array(timesDict.values).sorted(by: <) // time:hour from earliest to latest
+            let revisionTimes = Array(timesDict.values).sorted(by: <) // time:hour from earliest to latest
             
         // add revision to that day
             if day == "monday" {
