@@ -2,5 +2,5 @@
 # platform :ios, '9.0'
 
 target 'studyplanet' do
-pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git', :branch => '7.1.7'
+pod 'JTAppleCalendar', :git => 'https://github.com/patchthecode/JTAppleCalendar.git'
 end

@@ -80,8 +80,6 @@ extension AnimatedTabBarController: UITabBarControllerDelegate  {
             self.selectedIndex = toIndex
             self.view.isUserInteractionEnabled = true
         })
-        
-        
     }
     
 

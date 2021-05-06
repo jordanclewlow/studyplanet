@@ -317,10 +317,6 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        defaults.setValue(25, forKey: "streak")
-        defaults.setValue(10000, forKey: "stars")
-
         // load progress view so that badges show up
         let progressVC = self.tabBarController?.viewControllers?[2] as! ProgressViewController
         progressVC.loadView()
@@ -462,7 +458,6 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
             
             // change selected day
             if cellState.column() == 0{
-                
                 daySelected = "monday"
             } else if cellState.column() == 1{
                 daySelected = "tuesday"
@@ -478,7 +473,6 @@ extension PlanViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
                 daySelected = "sunday"
             }
 
-        //print(cellState.column())
             // show day month year
             let date = Date()
             let dateFormatter = DateFormatter()

@@ -34,7 +34,7 @@ class PlanTableViewCell: UITableViewCell {
     
     
     // instantiate variables
-    var currentTime = 15//Calendar.current.component(.hour, from: Date())// time right now
+    var currentTime = 18//Calendar.current.component(.hour, from: Date())// time right now
     var revisionSlotTime = 0 // time of revision slot cell
     var currentDayNum = 0 // aka 14  <- march
     var selectedDayNum = 0 // aka 14  <- march
@@ -309,13 +309,14 @@ class PlanTableViewCell: UITableViewCell {
             backgroundCell.backgroundColor = planetGreen
             giveStars(amount: reward)
             
-            // streaks
-            let streak = defaults.integer(forKey: "streak")
+            // add one to streak when completed
             defaults.setValue( streak+1, forKey: "streak")
+            let streak = defaults.integer(forKey: "streak")
             
-            // for badges
-            
-                        
+            // give user reward for how many streaks they have
+            let multiplier = streak / 10
+            let streakReward = reward * multiplier
+            giveStars(amount: streakReward)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] action in
         }))
@@ -467,16 +468,26 @@ class PlanTableViewCell: UITableViewCell {
                 tickBtn.isHidden = true
             }
             
-
-            if(isItOnGoing()){ // if current slot is not earlier than current time FIX FIX FIX
-                if(isPrevMissed()){
-                    //defaults.setValue(0, forKey: "streak")
+            if (currentTime%2==0){ // if time is even 12,14 aka on time
+                if(isItOnGoing()) {
+                    if(isPrevMissed()){  //missed one before
+                        defaults.setValue(0, forKey: "streak")
+                        showLostStreakAlert()
+                    }
+                }
+            }else{ // if time is odd, 15,17 aka before the upcoming
+                if(isItUpcoming()){
+                    if(isPrevMissed()){
+                        defaults.setValue(0, forKey: "streak")
+                        showLostStreakAlert()
+                    }
                 }
             }
             
+            
             if(isItCompleted(indexPath: indexPath)){ // if it is today,completed
                 backgroundCell.backgroundColor = planetGreen
-
+                
                 if(!tickBtn.isSelected){ // if not selected
                     tickBtn.isSelected.toggle() // select
                     backgroundCell.backgroundColor = planetGreen
@@ -533,6 +544,14 @@ class PlanTableViewCell: UITableViewCell {
                 defaults.setValue(completedSlotsArr, forKey: "sundayCompleted")
             }
         }
+        
+    }
+    
+    // show lost streak alert
+    func showLostStreakAlert() {
+        let alert = UIAlertController(title: "Lost streak!", message: "You can build up your streak by not missing sessions", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        delegate?.present(alert, animated: true)
         
     }
     
